@@ -2,8 +2,8 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
-import db from "../firebase";
-import {collection, getDocs,deleteDoc, doc} from "firebase/firestore";
+// import db from "../firebase";
+// import {collection, getDocs,deleteDoc, doc} from "firebase/firestore";
 
 import {useState,useEffect} from 'react';
 import axios from 'axios';
@@ -12,45 +12,39 @@ import Link from 'next/link';
 
 const createPath = '/post/create';
 
-const url = 'http://frontend-practice-app.firebaseio.com/fruits.json';
 
 
-type posts={
+
+type datas={
   id:string;
   title:string;
-  text:string;
+  content:string;
 }
 
-const inter = Inter({ subsets: ['latin'] })
 export default function Home() {
-
-  const [posts,setPosts]=useState<posts[]>([]);
-
-  const fetchPosts=()=>{
-    const postData=collection(db,"posts");
-    getDocs(postData)
-    .then((res)=>{
-      const fetchPosts: posts[]=res.docs.map((doc)=>({
-        id: doc.id,
-        ...doc.data(),
-      })as posts);
-      setPosts(fetchPosts);
-    })
-  }
+  const [datas,setDatas]=useState<datas[]>([]);
+  const api = 'http://localhost:18080/v1/note';
 
   useEffect(()=>{
-    fetchPosts();
-  },[]);
+    axios.get(api)
+    .then((res)=>{
+      console.log(res.data.items);
+      setDatas(res.data.items);
+    })
+    .catch((err)=>{
+      console.log("エラーが発生しました",err);
+    })
+  })
+
 
   return (
     <>
       <div>
         {/* メモ一覧表示 */}
-        {posts.map((post)=>(
-          <div key={post.id}>
+        {datas.map((data)=>(
+          <div key={data.id}>
             <p>
-              <Link href={`/post/${post.id}`}>{post.title}</Link>
-              
+              {data.title}
             </p>
           </div>
         ))}
