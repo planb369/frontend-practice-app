@@ -35,6 +35,7 @@ export default function Create() {
             <h1>作成ページ</h1>
 
             {/* フォームを作成する。メモの内容を入力するだけ */}
+            <Link href={indexPath}>一覧画面へ戻る</Link>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div>
                     <div>
