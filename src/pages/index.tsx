@@ -13,37 +13,35 @@ const createPath = '/post/create';
 
 
 
-type datas={
+type posts={
   id:string;
   title:string;
   content:string;
 }
 
 export default function Home() {
-  const [datas,setDatas]=useState<datas[]>([]);
+  const [posts,setPosts]=useState<posts[]>([]);
   const api = 'http://localhost:18080/v1/note';
 
   useEffect(()=>{
     axios.get(api)
     .then((res)=>{
       console.log(res.data.items);
-      setDatas(res.data.items);
+      setPosts(res.data.items);
     })
     .catch((err)=>{
       console.log("エラーが発生しました",err);
     })
-  })
+  },[])
 
 
   return (
     <>
       <div>
         {/* メモ一覧表示 */}
-        {datas.map((data)=>(
-          <div key={data.id}>
-            <p>
-              {data.title}
-            </p>
+        {posts.map((post)=>(
+          <div key={post.id}>
+            <Link href={`/post/${post.id}`}>{post.title}</Link>
           </div>
         ))}
       </div>

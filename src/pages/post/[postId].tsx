@@ -1,46 +1,43 @@
-// import { useRouter } from "next/router";
-// import { useState, useEffect } from 'react';
-// import { collection, doc, getDoc, DocumentData } from "firebase/firestore";
+import {useState,useEffect} from 'react';
+import axios from 'axios';
+import Link from 'next/link';
+import {useRouter} from "next/router";
 
-// type details = {
-//   id: string;
-//   title: string;
-//   text: string;
-// };
 
-// export default function Details() {
-//   const router = useRouter();
-//   const { postId } = router.query;
 
-//   const [details, setDetails] = useState<details | null>(null);
 
-//   useEffect(() => {
-//     if (postId) {
-//       const fetchDetails = () => {
-//         const postDetails = doc(collection(db, "posts"), postId.toString());
-//         getDoc(postDetails)
-//           .then((res) => {
-//             const data = res.data() as details;
-//             setDetails(data);
-//           })
-//           .catch((error) => {
-//             console.error("詳細の取得に失敗しました", error);
-//           });
-//       };
+type details={
+  id:string;
+  title:string;
+  content:string;
+}
 
-//       fetchDetails();
-//     }
-//   }, [postId]);
+export default function Details() {
+  const router=useRouter();
+  const {postId}=router.query;
+  const [details,setDetails]=useState<details[]>([]);
+  const api = `http://localhost:18080/v1/note/${postId}`;
 
-//   return (
-//     <div>
-//       {/* 詳細表示 */}
-//       {details && (
-//         <>
-//           <h1>{details.title}</h1>
-//           <p>{details.text}</p>
-//         </>
-//       )}
-//     </div>
-//   );
-// }
+  useEffect(()=>{
+    axios.get(api)
+    .then((res)=>{
+      console.log(res);
+      // console.log(api);
+      // setDetails(res.data.items);
+    })
+    .catch((err)=>{
+      console.log("エラーが発生しました",err);
+    })
+  },[postId])
+
+
+  return (
+    <>
+      <h1>データ表示</h1>
+      <div>
+        {/* {details.title}
+        {details.content} */}
+      </div>
+    </>
+  )
+}
