@@ -11,14 +11,14 @@ type details = {
 
 export default function Details() {
   const router = useRouter();
-  const { id } = router.query;
+  const { postId } = router.query;
 
   const [details, setDetails] = useState<details | null>(null);
 
   useEffect(() => {
-    if (id) {
+    if (postId) {
       const fetchDetails = () => {
-        const postDetails = doc(collection(db, "posts"), id.toString());
+        const postDetails = doc(collection(db, "posts"), postId.toString());
         getDoc(postDetails)
           .then((res) => {
             const data = res.data() as details;
@@ -31,7 +31,7 @@ export default function Details() {
 
       fetchDetails();
     }
-  }, [id]);
+  }, [postId]);
 
   return (
     <div>
