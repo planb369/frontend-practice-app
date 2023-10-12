@@ -2,8 +2,6 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
-// import db from "../firebase";
-// import {collection, getDocs,deleteDoc, doc} from "firebase/firestore";
 
 import {useState,useEffect} from 'react';
 import axios from 'axios';
