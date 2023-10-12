@@ -17,6 +17,7 @@ const url = 'http://frontend-practice-app.firebaseio.com/fruits.json';
 
 type posts={
   id:string;
+  title:string;
   text:string;
 }
 
@@ -48,7 +49,8 @@ export default function Home() {
         {posts.map((post)=>(
           <div key={post.id}>
             <p>
-              {post.text}
+              <Link href={`/post/${post.id}`}>{post.title}</Link>
+              
             </p>
           </div>
         ))}
