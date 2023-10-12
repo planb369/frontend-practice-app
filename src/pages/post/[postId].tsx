@@ -15,28 +15,30 @@ type details={
 export default function Details() {
   const router=useRouter();
   const {postId}=router.query;
-  const [details,setDetails]=useState<details[]>([]);
+  const [details,setDetails]=useState<details>();
   const api = `http://localhost:18080/v1/note/${postId}`;
 
   useEffect(()=>{
-    axios.get(api)
-    .then((res)=>{
-      console.log(res);
-      // console.log(api);
-      // setDetails(res.data.items);
-    })
-    .catch((err)=>{
-      console.log("エラーが発生しました",err);
-    })
-  },[postId])
+    if(postId){
+      axios.get(api)
+      .then((res)=>{
+        console.log(res.data);
+        setDetails(res.data);
+      })
+      .catch((err)=>{
+        console.log("エラーが発生しました",err);
+      })
+    }
+  },[postId]);
+  
+
 
 
   return (
     <>
       <h1>データ表示</h1>
       <div>
-        {/* {details.title}
-        {details.content} */}
+
       </div>
     </>
   )
