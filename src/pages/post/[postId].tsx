@@ -11,30 +11,27 @@ type details = {
 
 export default function Details() {
   const router = useRouter();
-  const { postId } = router.query;
+  const { id } = router.query;
 
   const [details, setDetails] = useState<details | null>(null);
 
   useEffect(() => {
-    if (postId) {
-      const fetchDetails = async () => {
-        try {
-          const postDataRef = doc(collection(db, "posts"), postId.toString());
-          const docSnap = await getDoc(postDataRef);
-          if (docSnap.exists()) {
-            const data = docSnap.data() as details;
+    if (id) {
+      const fetchDetails = () => {
+        const postDetails = doc(collection(db, "posts"), id.toString());
+        getDoc(postDetails)
+          .then((res) => {
+            const data = res.data() as details;
             setDetails(data);
-          } else {
-            console.log("ドキュメントが存在しません");
-          }
-        } catch (error) {
-          console.error("データの取得に失敗しました", error);
-        }
+          })
+          .catch((error) => {
+            console.error("詳細の取得に失敗しました", error);
+          });
       };
 
       fetchDetails();
     }
-  }, [postId]);
+  }, [id]);
 
   return (
     <div>
