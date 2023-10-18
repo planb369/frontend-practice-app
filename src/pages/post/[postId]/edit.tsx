@@ -80,7 +80,7 @@ export default function Edit() {
                     {errors.title && <p>タイトルを入力してください</p>}
                 </div>
                 <div>
-                    <input value={data.content} {...register('content', { required: true })} />
+                    <textarea value={data.content} {...register('content', { required: true })} />
                     {errors.content && <p>メッセージを入力してください</p>}
                 </div>
             </div>
