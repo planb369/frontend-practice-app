@@ -6,6 +6,8 @@ import { useQuery } from "react-query";
 import axios from "axios";
 
 const indexPath = '../';
+const api = 'http://localhost:18080/v1/note';
+
 
 type FormData = {
     id: string;
@@ -19,6 +21,33 @@ export default function Create() {
 
     const onSubmit = (data: FormData) => {
         //ここでデータ投稿処理
+
+        const postData={title: data.title, content: data.content}
+
+
+        axios.post(api,postData)
+        .then(()=>{
+            console.log("成功しました");
+            //indexへ遷移
+
+        }).catch((err)=>{
+            console.log('データ送信に失敗しました',err);
+        })
+
+
+        // try{
+        //     const newPost={
+        //         title: data.title,
+        //         content: data.content,
+        //     };
+
+        //     //apiへ送信
+        //     axios.post(api,{items: [newPost]});
+
+        //     //indexへ遷移
+        // }catch(err){
+        //     console.log('データの投稿に失敗しました',err);
+        // }
     }
 
     return (
