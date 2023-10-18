@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { useQuery, QueryClient, QueryClientProvider } from 'react-query';
 import axios from 'axios';
+import Link from 'next/link';
 
 // QueryClientのインスタンスを作成
 const queryClient = new QueryClient();
@@ -35,6 +36,7 @@ export default function Details() {
   // データが正常に取得された場合
   return (
     <>
+      <Link href={`../`}>一覧画面へ戻る</Link>
       <h1>データ表示</h1>
       <div>
         <h2>{data.title}</h2>
