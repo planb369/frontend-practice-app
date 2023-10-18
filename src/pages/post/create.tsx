@@ -5,16 +5,11 @@ import { ErrorMessage } from '@hookform/error-message';
 import { useQuery } from "react-query";
 import axios from "axios";
 import * as yup from "yup";
+import { posts } from "../../types"; 
 
 const indexPath = '../';
 const api = 'http://localhost:18080/v1/note';
 
-
-type posts = {
-    id: string;
-    title: string;
-    content: string;
-}
 
 //バリデーション
 const postsSchema = yup.object().shape({
