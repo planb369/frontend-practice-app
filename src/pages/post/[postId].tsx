@@ -10,7 +10,7 @@ import Modal from "../../components/Modal";
 const queryClient = new QueryClient();
 
 // データの型を定義
-type Post = {
+type posts = {
   id: string;
   title: string;
   content: string;
@@ -24,8 +24,8 @@ export default function Details() {
   const api = `http://localhost:18080/v1/note/${postId}`;
 
   // useQueryフックを使用してデータを取得
-  const { data, isLoading, isError } = useQuery<Post>(`${postId}`, () => {
-    return axios.get<Post>(api)
+  const { data, isLoading, isError } = useQuery<posts>(`${postId}`, () => {
+    return axios.get<posts>(api)
       .then((response) => {
         return response.data;
       })
