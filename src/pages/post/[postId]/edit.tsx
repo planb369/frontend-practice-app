@@ -3,7 +3,6 @@ import { useQuery, QueryClient, QueryClientProvider } from 'react-query';
 import axios from 'axios';
 import Link from 'next/link';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { posts } from '../../../types';
 
 import React, { useState } from "react";
 
@@ -11,7 +10,7 @@ import React, { useState } from "react";
 const queryClient = new QueryClient();
 
 // データの型を定義
-type Post = {
+type posts = {
   id: string;
   title: string;
   content: string;
@@ -19,15 +18,15 @@ type Post = {
 
 export default function Edit() {
 
-    const { register, handleSubmit, formState: { errors } } = useForm<Post>();
+    const { register, handleSubmit, formState: { errors } } = useForm<posts>();
   
   const router = useRouter();
   const { postId } = router.query;
   const api = `http://localhost:18080/v1/note/${postId}`;
 
   // useQueryフックを使用してデータを取得
-  const { data, isLoading, isError } = useQuery<Post>(`${postId}`, () => {
-    return axios.get<Post>(api)
+  const { data, isLoading, isError } = useQuery<posts>(`${postId}`, () => {
+    return axios.get<posts>(api)
       .then((response) => {
         return response.data;
       })
@@ -45,7 +44,7 @@ export default function Edit() {
 
 
   //ここからデータ送信して編集
-  const onSubmit = (data: Post) => {
+  const onSubmit = (data: posts) => {
     //ここでデータ投稿処理
 
     const postData={title: data.title, content: data.content}
