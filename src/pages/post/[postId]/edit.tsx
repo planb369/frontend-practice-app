@@ -15,15 +15,10 @@ type Post = {
   title: string;
   content: string;
 };
-type FormData = {
-    id: string;
-    title: string;
-    content: string;
-}
 
 export default function Edit() {
 
-    const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
+    const { register, handleSubmit, formState: { errors } } = useForm<Post>();
   
   const router = useRouter();
   const { postId } = router.query;
@@ -49,7 +44,7 @@ export default function Edit() {
 
 
   //ここからデータ送信して編集
-  const onSubmit = (data: FormData) => {
+  const onSubmit = (data: Post) => {
     //ここでデータ投稿処理
 
     const postData={title: data.title, content: data.content}
