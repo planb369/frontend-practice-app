@@ -49,12 +49,12 @@ export default function Edit() {
 
     const postData={title: data.title, content: data.content}
 
-    axios.post(api,postData)
+    axios.put(api,postData)
     .then(()=>{
         console.log("成功しました");
 
         //indexへ遷移
-        router.push("../../../index");
+        router.push("../../../");
 
     }).catch((err)=>{
         console.log('データ送信に失敗しました',err);
@@ -71,11 +71,11 @@ export default function Edit() {
         <form onSubmit={handleSubmit(onSubmit)}>
             <div>
                 <div>
-                    <input value={data.title} {...register('title', { required: true })} />
+                    <input placeholder={data.title} {...register('title', { required: true })} />
                     {errors.title && <p>タイトルを入力してください</p>}
                 </div>
                 <div>
-                    <textarea value={data.content} {...register('content', { required: true })} />
+                    <textarea placeholder={data.content} {...register('content', { required: true })} />
                     {errors.content && <p>メッセージを入力してください</p>}
                 </div>
             </div>
