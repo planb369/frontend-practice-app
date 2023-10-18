@@ -6,6 +6,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { posts } from "../../../types"; 
 import React, { useState } from "react";
 import FeatchDetail from '@/apis/featchDetail';
+import create from "../../../styles/create.module.css"
 
 // QueryClientのインスタンスを作成
 const queryClient = new QueryClient();
@@ -49,24 +50,26 @@ export default function Edit() {
   // データが正常に取得された場合
   return (
     <>
-        <Link href={`../../../`}>一覧画面へ戻る</Link>
-        <h1>編集ページ</h1>
+        <div className={create.container}>
+        <div className={create.indexBtn}><Link className={create.indexBtnText} href={`../../../`}>一覧画面へ戻る</Link></div>
+            
+            <h1 className={create.h1}>編集ページ</h1>
 
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <div>
+            <form className={create.form} onSubmit={handleSubmit(onSubmit)}>
                 <div>
-                    <input placeholder={data.title} {...register('title', { required: true })} />
-                    {errors.title && <p>タイトルを入力してください</p>}
+                    <div>
+                        <input className={create.titleErea} placeholder={data.title} {...register('title', { required: true })} />
+                        {errors.title && <p>タイトルを入力してください</p>}
+                    </div>
+                    <div>
+                        <textarea className={create.contentErea} placeholder={data.content} {...register('content', { required: true })} />
+                        {errors.content && <p>メッセージを入力してください</p>}
+                    </div>
                 </div>
-                <div>
-                    <textarea placeholder={data.content} {...register('content', { required: true })} />
-                    {errors.content && <p>メッセージを入力してください</p>}
-                </div>
-            </div>
-            <div>
-                <input type="submit" />
-            </div>
-        </form>
+                <div className={create.createButtonContainer}><input className={create.createButton} type="submit" /></div>
+            </form>
+        </div>
+        
     </>
   );
 }
