@@ -37,7 +37,7 @@ export default function Details() {
 
   // ローディング中の場合
   if (!data) return <p>Loading...</p>;
-  
+
 //ここまで詳細表示
 
 
@@ -76,6 +76,8 @@ export default function Details() {
 
       {/* Appコンポーネントから子であるModalコンポーネントにpropsを渡す */}
       <Modal showFlag={showModal} setShowModal={setShowModal} onDelete={onDelete} />
+
+      <Link href={`${postId}/edit`}>編集</Link>
 
     </>
   );
