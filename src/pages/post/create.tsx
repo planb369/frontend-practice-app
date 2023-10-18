@@ -6,6 +6,7 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import * as yup from "yup";
 import { posts } from "../../types"; 
+import create from "../../styles/create.module.css";
 
 const indexPath = '../';
 const api = 'http://localhost:18080/v1/note';
@@ -56,25 +57,25 @@ export default function Create() {
 
     return (
         <>
-            <Link href={indexPath}>一覧画面へ戻る</Link>
-            <h1>作成ページ</h1>
-            
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <div>
+            <div className={create.container}>
+                <div className={create.indexBtn}><Link className={create.indexBtnText} href={indexPath}>一覧画面へ戻る</Link></div>
+                
+                <h1 className={create.h1}>作成ページ</h1>
+                
+                <form className={create.form} onSubmit={handleSubmit(onSubmit)}>
                     <div>
-                        <input placeholder='タイトル' {...register('title', { required: 'タイトルは必須項目です', maxLength: 30 })} />
-                        {errors.title && <p>{errors.title.message}</p>}
+                        <div>
+                            <input className={create.titleErea} placeholder='タイトル' {...register('title', { required: 'タイトルは必須項目です', maxLength: 30 })} />
+                            {errors.title && <p>{errors.title.message}</p>}
+                        </div>
+                        <div>
+                            <textarea className={create.contentErea} placeholder='メッセージ' {...register('content', { required: 'メッセージは必須項目です', maxLength: 30 })}  />
+                            {errors.content && <p>{errors.content.message}</p>}
+                        </div>
                     </div>
-                    <div>
-                        <input placeholder='メッセージ' {...register('content', { required: 'メッセージは必須項目です', maxLength: 30 })} />
-                        {errors.content && <p>{errors.content.message}</p>}
-                    </div>
-                </div>
-                <div>
-                    <input type="submit" />
-                </div>
-            </form>
-
+                    <input className={create.createButton} type="submit" />
+                </form>
+            </div>
         </>
     );
 }
