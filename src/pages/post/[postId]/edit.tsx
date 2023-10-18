@@ -3,18 +3,11 @@ import { useQuery, QueryClient, QueryClientProvider } from 'react-query';
 import axios from 'axios';
 import Link from 'next/link';
 import { useForm, SubmitHandler } from 'react-hook-form';
-
+import { posts } from "../../../types"; 
 import React, { useState } from "react";
 
 // QueryClientのインスタンスを作成
 const queryClient = new QueryClient();
-
-// データの型を定義
-type posts = {
-  id: string;
-  title: string;
-  content: string;
-};
 
 export default function Edit() {
 
