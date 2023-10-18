@@ -5,34 +5,19 @@ import Link from 'next/link';
 import React, { useState } from "react";
 import { posts } from "../../types"; 
 import Modal from "../../components/Modal";
+import FeatchDetail from '@/apis/featchDetail';
 
 // QueryClientのインスタンスを作成
 const queryClient = new QueryClient();
 
 export default function Details() {
   const [showModal, setShowModal] = useState(false);
-  
+
   const router = useRouter();
   const { postId } = router.query;
-  const api = `http://localhost:18080/v1/note/${postId}`;
 
-  // useQueryフックを使用してデータを取得
-  const { data, isLoading, isError } = useQuery<posts>(`${postId}`, () => {
-    return axios.get<posts>(api)
-      .then((response) => {
-        return response.data;
-      })
-      .catch((error) => {
-        // データの取得に失敗した場合のエラーハンドリング
-        throw new Error('データを取得できませんでした');
-      });
-  });
-
-  // ローディング中の場合
-  if (!data) return <p>Loading...</p>;
-
-//ここまで詳細表示
-
+  // FeatchDetailコンポーネントを呼び出してデータを取得
+  const { data, isLoading, isError } = FeatchDetail();
 
 
   
@@ -43,7 +28,7 @@ export default function Details() {
 
  
   const onDelete = () => {
-  
+    const api = `http://localhost:18080/v1/note/${postId}`;
     axios.delete(api)
       .then(() => {
         console.log("成功しました");
@@ -61,8 +46,8 @@ export default function Details() {
       <Link href={`../`}>一覧画面へ戻る</Link>
       <h1>データ表示</h1>
       <div>
-        <h2>{data.title}</h2>
-        <p>{data.content}</p>
+        <h2>{data?.title}</h2>
+        <p>{data?.content}</p>
       </div>
 
       <button onClick={ShowModal}>削除</button>
