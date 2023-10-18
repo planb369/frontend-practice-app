@@ -10,7 +10,7 @@ const indexPath = '../';
 const api = 'http://localhost:18080/v1/note';
 
 
-type FormData = {
+type posts = {
     id: string;
     title: string;
     content: string;
@@ -28,11 +28,11 @@ const postsSchema = yup.object().shape({
   });
 
 export default function Create() {
-    const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
+    const { register, handleSubmit, formState: { errors } } = useForm<posts>();
     
     const router = useRouter();    
 
-    const onSubmit = (data: FormData) => {
+    const onSubmit = (data: posts) => {
 
         //バリデーション
         postsSchema.validate(data)
