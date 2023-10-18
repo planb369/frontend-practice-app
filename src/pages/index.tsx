@@ -3,17 +3,18 @@ import {useState,useEffect} from 'react';
 import axios from 'axios';
 import { useForm, SubmitHandler } from 'react-hook-form';//react-hooks-formß
 import Link from 'next/link';
+import { posts } from "../types"; 
 
 const createPath = '/post/create';
 
 
 
 
-type posts={
-  id:string;
-  title:string;
-  content:string;
-}
+// type posts={
+//   id:string;
+//   title:string;
+//   content:string;
+// }
 type ApiResponse={
   items:posts[];
 }
