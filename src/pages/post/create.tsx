@@ -27,7 +27,9 @@ export default function Create() {
         axios.post(api,postData)
         .then(()=>{
             console.log("成功しました");
+
             //indexへ遷移
+            router.push(indexPath);
 
         }).catch((err)=>{
             console.log('データ送信に失敗しました',err);
