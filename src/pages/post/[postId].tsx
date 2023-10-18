@@ -37,17 +37,18 @@ export default function Details() {
 
   // ローディング中の場合
   if (!data) return <p>Loading...</p>;
-
+  
+//ここまで詳細表示
 
 
 
   
-
+  //ここから削除機能
   const ShowModal = () => {
     setShowModal(true);
   };
 
-  //削除機能
+ 
   const onDelete = () => {
   
     axios.delete(api)
@@ -71,21 +72,10 @@ export default function Details() {
         <p>{data.content}</p>
       </div>
 
-      {/* <div>
-        <button onClick={onClickDelete}>削除</button>
-      </div> */}
-
       <button onClick={ShowModal}>削除</button>
+
       {/* Appコンポーネントから子であるModalコンポーネントにpropsを渡す */}
-      
       <Modal showFlag={showModal} setShowModal={setShowModal} onDelete={onDelete} />
-
-
-
-
-
-
-
 
     </>
   );
