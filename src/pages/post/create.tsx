@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { ErrorMessage } from '@hookform/error-message';
 import { useQuery } from "react-query";
 import axios from "axios";
+import * as yup from "yup";
 
 const indexPath = '../';
 const api = 'http://localhost:18080/v1/note';
@@ -15,25 +16,47 @@ type FormData = {
     content: string;
 }
 
+//バリデーション
+const postsSchema = yup.object().shape({
+    title: yup
+        .string()
+        .required("タイトルは必須項目です")
+        .max(30, "タイトルは30文字以内で入力してください"),
+    content: yup
+        .string().required("本文は必須項目です")
+        .max(30, "本文は30文字以内で入力してください"),
+  });
+
 export default function Create() {
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
+    
     const router = useRouter();    
 
     const onSubmit = (data: FormData) => {
-        //ここでデータ投稿処理
 
-        const postData={title: data.title, content: data.content}
+        //バリデーション
+        postsSchema.validate(data)
+        .then(()=>{//バリデーションが成功した時
+            const postData={title: data.title, content: data.content}
+            axios.post(api,postData)//ここでデータ投稿処理
+            .then(()=>{
+                console.log("成功しました");
 
-        axios.post(api,postData)
-        .then(()=>{
-            console.log("成功しました");
+                //indexへ遷移
+                router.push(indexPath);
 
-            //indexへ遷移
-            router.push(indexPath);
-
-        }).catch((err)=>{
-            console.log('データ送信に失敗しました',err);
+            }).catch((err)=>{
+                console.log('データ送信に失敗しました',err);
+            })
         })
+        .catch((validationErr)=>{
+            console.log("バリデーションエラーです",validationErr);
+        })
+        
+
+        
+
+        
     }
 
     return (
@@ -44,18 +67,19 @@ export default function Create() {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div>
                     <div>
-                        <input placeholder='タイトル' {...register('title', { required: true })} />
-                        {errors.title && <p>タイトルを入力してください</p>}
+                        <input placeholder='タイトル' {...register('title', { required: 'タイトルは必須項目です', maxLength: 30 })} />
+                        {errors.title && <p>{errors.title.message}</p>}
                     </div>
                     <div>
-                        <input placeholder='メッセージ' {...register('content', { required: true })} />
-                        {errors.content && <p>メッセージを入力してください</p>}
+                        <input placeholder='メッセージ' {...register('content', { required: 'メッセージは必須項目です', maxLength: 30 })} />
+                        {errors.content && <p>{errors.content.message}</p>}
                     </div>
                 </div>
                 <div>
                     <input type="submit" />
                 </div>
             </form>
+
         </>
     );
 }

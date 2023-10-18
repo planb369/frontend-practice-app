@@ -3,6 +3,7 @@ import { useQuery, QueryClient, QueryClientProvider } from 'react-query';
 import axios from 'axios';
 import Link from 'next/link';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { posts } from '../../../types';
 
 import React, { useState } from "react";
 
