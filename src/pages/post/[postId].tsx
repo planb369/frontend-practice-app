@@ -3,6 +3,9 @@ import { useQuery, QueryClient, QueryClientProvider } from 'react-query';
 import axios from 'axios';
 import Link from 'next/link';
 
+import React, { useState } from "react";
+import Modal from "../../components/Modal";
+
 // QueryClientのインスタンスを作成
 const queryClient = new QueryClient();
 
@@ -14,6 +17,8 @@ type Post = {
 };
 
 export default function Details() {
+  const [showModal, setShowModal] = useState(false);
+  
   const router = useRouter();
   const { postId } = router.query;
   const api = `http://localhost:18080/v1/note/${postId}`;
@@ -53,6 +58,9 @@ export default function Details() {
     })
   }
 
+  const ShowModal = () => {
+    setShowModal(true);
+  };
 
 
   // データが正常に取得された場合
@@ -65,9 +73,15 @@ export default function Details() {
         <p>{data.content}</p>
       </div>
 
-      <div>
+      {/* <div>
         <button onClick={onClickDelete}>削除</button>
-      </div>
+      </div> */}
+
+      <h2>Modal実装</h2>
+      <button onClick={ShowModal}>Open Modal</button>
+      {/* Appコンポーネントから子であるModalコンポーネントにpropsを渡す */}
+      <Modal showFlag={showModal} setShowModal={setShowModal} />
+
     </>
   );
 }
