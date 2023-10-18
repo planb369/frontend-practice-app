@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useForm, SubmitHandler } from 'react-hook-form';//react-hooks-formß
 import Link from 'next/link';
 import { posts } from "../types"; 
+import index from "../styles/index.module.css";
 
 const createPath = '/post/create';
 
@@ -31,7 +32,7 @@ export default function Home() {
 
   return (
     <>
-      <div>
+      <div className={index.container}>
         <h1>一覧表示</h1>
         {posts?.map((post) => (
           <div key={post.id}>
