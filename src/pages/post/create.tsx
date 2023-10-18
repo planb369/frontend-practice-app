@@ -73,7 +73,7 @@ export default function Create() {
                             {errors.content && <p>{errors.content.message}</p>}
                         </div>
                     </div>
-                    <input className={create.createButton} type="submit" />
+                    <div className={create.createButtonContainer}><input className={create.createButton} type="submit" /></div>
                 </form>
             </div>
         </>
