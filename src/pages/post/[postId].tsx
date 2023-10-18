@@ -41,27 +41,25 @@ export default function Details() {
 
 
 
-  //削除機能
-  const onClickDelete=()=>{
-    //ここで削除する機能を書く
-    console.log("sss");
-
-    console.log(api);
-
-    axios.delete(api)
-    .then(()=>{
-        console.log("成功しました");
-        //indexへ遷移
-        router.push('../../')
-    }).catch((err)=>{
-        console.log('データ送信に失敗しました',err);
-    })
-  }
+  
 
   const ShowModal = () => {
     setShowModal(true);
   };
 
+  //削除機能
+  const onDelete = () => {
+  
+    axios.delete(api)
+      .then(() => {
+        console.log("成功しました");
+        // indexへ遷移
+        router.push('../../')
+      })
+      .catch((err) => {
+        console.log('データ送信に失敗しました', err);
+      });
+  };
 
   // データが正常に取得された場合
   return (
@@ -79,7 +77,15 @@ export default function Details() {
 
       <button onClick={ShowModal}>削除</button>
       {/* Appコンポーネントから子であるModalコンポーネントにpropsを渡す */}
-      <Modal showFlag={showModal} setShowModal={setShowModal} />
+      
+      <Modal showFlag={showModal} setShowModal={setShowModal} onDelete={onDelete} />
+
+
+
+
+
+
+
 
     </>
   );
