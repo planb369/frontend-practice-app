@@ -47,7 +47,7 @@ export default function Details() {
     .then(()=>{
         console.log("成功しました");
         //indexへ遷移
-
+        router.push('../../')
     }).catch((err)=>{
         console.log('データ送信に失敗しました',err);
     })
