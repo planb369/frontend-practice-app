@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import { posts } from "../../types"; 
 import Modal from "../../components/Modal";
 import FeatchDetail from '@/apis/featchDetail';
+import details from "../../styles/details.module.css";
 
 // QueryClientのインスタンスを作成
 const queryClient = new QueryClient();
@@ -43,20 +44,27 @@ export default function Details() {
   // データが正常に取得された場合
   return (
     <>
-      <Link href={`../`}>一覧画面へ戻る</Link>
-      <h1>データ表示</h1>
-      <div>
-        <h2>{data?.title}</h2>
-        <p>{data?.content}</p>
+      <div className={details.container}> 
+        <div className={details.indexBtn}>
+          <Link className={details.indexBtnText} href={`../`}>一覧画面へ戻る</Link>
+        </div>
+        
+        <h1 className={details.h1}>記事詳細</h1>
+        <div>
+          <p className={details.title}>{data?.title}</p>
+          <p className={details.content}>{data?.content}</p>
+        </div>
+
+        
+        <div className={details.buttons}>
+          <button className={details.deleteButton} onClick={ShowModal}>削除</button>
+          {/* Appコンポーネントから子であるModalコンポーネントにpropsを渡す */}
+          <Modal showFlag={showModal} setShowModal={setShowModal} onDelete={onDelete} />
+
+          <div className={details.editButton}><Link className={details.edit} href={`${postId}/edit`}>編集</Link></div>
+        </div>
+        
       </div>
-
-      <button onClick={ShowModal}>削除</button>
-
-      {/* Appコンポーネントから子であるModalコンポーネントにpropsを渡す */}
-      <Modal showFlag={showModal} setShowModal={setShowModal} onDelete={onDelete} />
-
-      <Link href={`${postId}/edit`}>編集</Link>
-
     </>
   );
 }
