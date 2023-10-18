@@ -77,8 +77,7 @@ export default function Details() {
         <button onClick={onClickDelete}>削除</button>
       </div> */}
 
-      <h2>Modal実装</h2>
-      <button onClick={ShowModal}>Open Modal</button>
+      <button onClick={ShowModal}>削除</button>
       {/* Appコンポーネントから子であるModalコンポーネントにpropsを渡す */}
       <Modal showFlag={showModal} setShowModal={setShowModal} />
 

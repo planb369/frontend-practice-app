@@ -16,7 +16,7 @@ const closeModal = () => {
         <div id="overlay" style={overlay}>
             <div id="modalContent" style={modalContent}>
             <p>削除しますか？</p>
-            <button onClick={closeModal}>Close</button>
+            <button onClick={closeModal}>閉じる</button>
             </div>
         </div>
       
