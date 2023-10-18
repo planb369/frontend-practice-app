@@ -33,15 +33,16 @@ export default function Home() {
   return (
     <>
       <div className={index.container}>
-        <h1>一覧表示</h1>
+        <h1 className={index.h1}>記事一覧</h1>
         {posts?.map((post) => (
-          <div key={post.id}>
-            <Link href={`/post/${post.id}`}>{post.title}</Link>
+          <div key={post.id} className={index.itemTitle}>
+            <Link className={index.title} href={`/post/${post.id}`}>{post.title}</Link>
           </div>
         ))}
+        <div className={index.addBtn}>
+          <Link className={index.add} href={`${createPath}`}>Add</Link>
+        </div>
       </div>
-      <Link  href={`${createPath}`}>メモ作成</Link>
-
     </>
   )
 }
