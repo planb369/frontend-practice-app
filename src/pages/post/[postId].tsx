@@ -33,6 +33,28 @@ export default function Details() {
   // ローディング中の場合
   if (!data) return <p>Loading...</p>;
 
+
+
+
+  //削除機能
+  const onClickDelete=()=>{
+    //ここで削除する機能を書く
+    console.log("sss");
+
+    console.log(api);
+
+    axios.delete(api)
+    .then(()=>{
+        console.log("成功しました");
+        //indexへ遷移
+
+    }).catch((err)=>{
+        console.log('データ送信に失敗しました',err);
+    })
+  }
+
+
+
   // データが正常に取得された場合
   return (
     <>
@@ -41,6 +63,10 @@ export default function Details() {
       <div>
         <h2>{data.title}</h2>
         <p>{data.content}</p>
+      </div>
+
+      <div>
+        <button onClick={onClickDelete}>削除</button>
       </div>
     </>
   );
