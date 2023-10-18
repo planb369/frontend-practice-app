@@ -1,8 +1,4 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
-
+import { useQuery, QueryClient, QueryClientProvider } from 'react-query';
 import {useState,useEffect} from 'react';
 import axios from 'axios';
 import { useForm, SubmitHandler } from 'react-hook-form';//react-hooks-formß
@@ -18,28 +14,33 @@ type posts={
   title:string;
   content:string;
 }
+type ApiResponse={
+  items:posts[];
+}
 
 export default function Home() {
-  const [posts,setPosts]=useState<posts[]>([]);
+  const queryClient=new QueryClient();
   const api = 'http://localhost:18080/v1/note';
 
-  useEffect(()=>{
-    axios.get(api)
-    .then((res)=>{
-      console.log(res.data.items);
-      setPosts(res.data.items);
-    })
-    .catch((err)=>{
-      console.log("エラーが発生しました",err);
-    })
-  },[])
+
+  const {data: posts, isLoading,isError}=useQuery<posts[]>(
+    'posts',
+    async()=>{
+      try{
+        const response=await axios.get<ApiResponse>(api);
+        return response.data.items;
+      }catch(err){
+        throw new Error('データの取得に失敗しました');
+      }
+    }
+  )
 
 
   return (
     <>
       <div>
-        {/* メモ一覧表示 */}
-        {posts.map((post)=>(
+        <h1>一覧表示</h1>
+        {posts?.map((post) => (
           <div key={post.id}>
             <Link href={`/post/${post.id}`}>{post.title}</Link>
           </div>
