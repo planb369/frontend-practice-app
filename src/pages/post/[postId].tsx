@@ -2,19 +2,12 @@ import { useRouter } from 'next/router';
 import { useQuery, QueryClient, QueryClientProvider } from 'react-query';
 import axios from 'axios';
 import Link from 'next/link';
-
 import React, { useState } from "react";
+import { posts } from "../../types"; 
 import Modal from "../../components/Modal";
 
 // QueryClientのインスタンスを作成
 const queryClient = new QueryClient();
-
-// データの型を定義
-type posts = {
-  id: string;
-  title: string;
-  content: string;
-};
 
 export default function Details() {
   const [showModal, setShowModal] = useState(false);

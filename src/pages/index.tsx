@@ -7,14 +7,6 @@ import { posts } from "../types";
 
 const createPath = '/post/create';
 
-
-
-
-// type posts={
-//   id:string;
-//   title:string;
-//   content:string;
-// }
 type ApiResponse={
   items:posts[];
 }
