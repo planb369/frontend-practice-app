@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { posts } from "../../../types"; 
 import React, { useState } from "react";
+import FeatchDetail from '@/apis/featchDetail';
 
 // QueryClientのインスタンスを作成
 const queryClient = new QueryClient();
@@ -17,22 +18,12 @@ export default function Edit() {
   const { postId } = router.query;
   const api = `http://localhost:18080/v1/note/${postId}`;
 
-  // useQueryフックを使用してデータを取得
-  const { data, isLoading, isError } = useQuery<posts>(`${postId}`, () => {
-    return axios.get<posts>(api)
-      .then((response) => {
-        return response.data;
-      })
-      .catch((error) => {
-        // データの取得に失敗した場合のエラーハンドリング
-        throw new Error('データを取得できませんでした');
-      });
-  });
-
+  
+  // FeatchDetailコンポーネントを呼び出してデータを取得
+  const { data, isLoading, isError } = FeatchDetail();
   // ローディング中の場合
   if (!data) return <p>Loading...</p>;
 
-  //ここまでデータの取得
 
 
 
