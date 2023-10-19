@@ -12,6 +12,7 @@ import React, { useState } from 'react';
 const indexPath = '../';
 const api = 'http://localhost:18080/v1/note';
 
+//バリデーション設定
 const postsSchema = yup.object().shape({
   title: yup
     .string()
@@ -29,7 +30,8 @@ export default function Create() {
   const [validationErrors, setValidationErrors] = useState({}); // エラーメッセージの状態を初期化
 
   const onSubmit: SubmitHandler<posts> = async (data) => {
-    try {
+
+    try {//バリデーションチェック
         await postsSchema.validate(data);
       
         // バリデーションエラーがない場合、エラーメッセージをクリア
@@ -39,14 +41,16 @@ export default function Create() {
         await axios.post(api, postData);
         console.log("成功しました");
         router.push(indexPath);
-    } catch (validationErr) {
-        if (validationErr instanceof yup.ValidationError) {
+
+    } catch (validationErr) {//エラーの時
+        if (validationErr instanceof yup.ValidationError) {//バリデーションエラーの時
           const errorMessages = validationErr.errors.join(', ');
           console.log("バリデーションエラーです", errorMessages);
           setValidationErrors(validationErrors);
       
           // エラーメッセージを設定
           setValidationErrors({ title: errorMessages });
+          setValidationErrors({ content: errorMessages });
         } else {
           console.log("その他のエラー", validationErr);
         }
