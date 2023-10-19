@@ -9,6 +9,18 @@ import FeatchDetail from "@/apis/featchDetail";
 import create from "../../../styles/create.module.css";
 import * as yup from "yup";
 import { postsSchema } from "@/types/validation";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+const errorScheme = yup.object().shape({
+  title: yup
+    .string()
+    .required("タイトルは必須項目です")
+    .max(120, "タイトルは120文字以内で入力してください"),
+  content: yup
+    .string()
+    .required("メッセージは必須項目です")
+    .max(100000, "メッセージは100000文字以内で入力してください"),
+});
 
 // QueryClientのインスタンスを作成
 const queryClient = new QueryClient();
@@ -16,111 +28,85 @@ const queryClient = new QueryClient();
 export default function Edit() {
   const {
     control,
-    register,
     handleSubmit,
     formState: { errors },
-  } = useForm<posts>();
+  } = useForm({
+    resolver: yupResolver(errorScheme),
+  });
   const router = useRouter();
   const { postId } = router.query;
   const [titleValidationErrors, setTitleValidationErrors] = useState("");
   const [contentValidationErrors, setContentValidationErrors] = useState("");
   const api = `http://localhost:18080/v1/note/${postId}`;
 
-  // FeatchDetailコンポーネントを呼び出してデータを取得
+  // 対象の詳細データを取得
   const { data, isLoading, isError } = FeatchDetail();
   // ローディング中の場合
   if (!data) return <p>Loading...</p>;
 
-  const onSubmit: SubmitHandler<posts> = async (data) => {
+  const onSubmit: SubmitHandler<{ title: string; content: string }> = async (
+    data
+  ) => {
     try {
-      // バリデーションチェック
-      await postsSchema.validate(data);
-
-      // バリデーションエラーがない場合、エラーメッセージをクリア
-      setTitleValidationErrors("");
-      setContentValidationErrors("");
-
       const postData = { title: data.title, content: data.content };
       await axios.put(api, postData);
       console.log("成功しました");
-      router.push("../../../");
-    } catch (validationErr) {
-      if (validationErr instanceof yup.ValidationError) {
-        // エラーメッセージを設定
-        if (validationErr.path === "title") {
-          setTitleValidationErrors(validationErr.errors[0]);
-        }
-        if (validationErr.path === "content") {
-          setContentValidationErrors(validationErr.errors[0]);
-        }
-      } else {
-        console.log("その他のエラー", validationErr);
-      }
+      router.push("/");
+    } catch (err) {
+      console.log("データが送信できませんでした", err);
     }
   };
 
   // データが正常に取得された場合
   return (
-    <>
-      <div className={create.container}>
-        <div className={create.indexBtn}>
-          <Link className={create.indexBtnText} href={`../../../`}>
-            一覧画面へ戻る
-          </Link>
-        </div>
-
-        <h1 className={create.h1}>編集ページ</h1>
-
-        <form
-          placeholder={data.title}
-          className={create.form}
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <div>
-            <div>
-              <Controller
-                name="title"
-                control={control}
-                render={({ field }) => (
-                  <input
-                    className={create.titleErea}
-                    defaultValue={data.title}
-                    {...field}
-                  />
-                )}
-              />
-              {/* バリデーションエラーメッセージを表示 */}
-              {titleValidationErrors && (
-                <p className={create.validationMessage}>
-                  {titleValidationErrors}
-                </p>
-              )}
-            </div>
-            <div>
-              <Controller
-                name="content"
-                control={control}
-                render={({ field }) => (
-                  <textarea
-                    className={create.contentErea}
-                    defaultValue={data.content}
-                    {...field}
-                  />
-                )}
-              />
-              {/* バリデーションエラーメッセージを表示 */}
-              {contentValidationErrors && (
-                <p className={create.validationMessage}>
-                  {contentValidationErrors}
-                </p>
-              )}
-            </div>
-          </div>
-          <div className={create.createButtonContainer}>
-            <input className={create.createButton} type="submit" />
-          </div>
-        </form>
+    <div className={create.container}>
+      <div className={create.indexBtn}>
+        <Link className={create.indexBtnText} href={"/"}>
+          一覧画面へ戻る
+        </Link>
       </div>
-    </>
+
+      <h1 className={create.h1}>作成ページ</h1>
+      <form className={create.form} onSubmit={handleSubmit(onSubmit)}>
+        <div>
+          <div className={create.formGroup}>
+            <label htmlFor="title">タイトル:</label>
+            <Controller
+              name="title"
+              control={control}
+              render={({ field }) => (
+                <input
+                  defaultValue={data.title}
+                  className={create.titleErea}
+                  type="text"
+                  {...field}
+                />
+              )}
+            />
+            <p className={create.error}>{errors.title?.message}</p>
+          </div>
+          <div className={create.formGroup}>
+            <label htmlFor="content">メッセージ:</label>
+            <Controller
+              name="content"
+              control={control}
+              render={({ field }) => (
+                <textarea
+                  defaultValue={data.content}
+                  className={create.contentErea}
+                  {...field}
+                />
+              )}
+            />
+            <p className={create.error}>{errors.content?.message}</p>
+          </div>
+        </div>
+        <div className={create.createButtonContainer}>
+          <button className={create.createButton} type="submit">
+            編集
+          </button>
+        </div>
+      </form>
+    </div>
   );
 }
