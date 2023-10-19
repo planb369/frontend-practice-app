@@ -86,7 +86,7 @@ export default function Edit() {
             
             <h1 className={create.h1}>編集ページ</h1>
 
-            <form className={create.form} onSubmit={handleSubmit(onSubmit)}>
+            <form placeholder={data.title} className={create.form} onSubmit={handleSubmit(onSubmit)}>
           <div>
             <div>
               <Controller
@@ -95,7 +95,7 @@ export default function Edit() {
                 render={({ field }) => (
                   <input
                     className={create.titleErea}
-                    placeholder="タイトル"
+                    placeholder={data.title}
                     {...field}
                   />
                 )}
@@ -110,7 +110,7 @@ export default function Edit() {
                 render={({ field }) => (
                   <textarea
                     className={create.contentErea}
-                    placeholder="メッセージ"
+                    placeholder={data.content}
                     {...field}
                   />
                 )}
