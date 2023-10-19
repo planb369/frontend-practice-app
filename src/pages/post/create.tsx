@@ -12,12 +12,12 @@ import React, { useState } from 'react';
 const indexPath = '../';
 const api = 'http://localhost:18080/v1/note';
 
-//バリデーション設定
+// バリデーション設定
 const postsSchema = yup.object().shape({
   title: yup
     .string()
     .required("タイトルは必須項目です")
-    .max(30, "タイトルは30文字以内で入力してください"),
+    .max(10, "タイトルは10文字以内で入力してください"),
   content: yup
     .string()
     .required("本文は必須項目です")
@@ -27,30 +27,33 @@ const postsSchema = yup.object().shape({
 export default function Create() {
   const { control, handleSubmit, formState: { errors } } = useForm<posts>();
   const router = useRouter();
-  const [validationErrors, setValidationErrors] = useState({}); // エラーメッセージの状態を初期化
+  const [validationErrors, setValidationErrors] = useState({ title: '', content: '' }); // エラーメッセージの状態を初期化
 
   const onSubmit: SubmitHandler<posts> = async (data) => {
-
-    try {//バリデーションチェック
+    try {// バリデーションチェック
         await postsSchema.validate(data);
       
         // バリデーションエラーがない場合、エラーメッセージをクリア
-        setValidationErrors({});
+        setValidationErrors({ title: '', content: '' });
         
         const postData = { title: data.title, content: data.content };
         await axios.post(api, postData);
         console.log("成功しました");
         router.push(indexPath);
 
-    } catch (validationErr) {//エラーの時
-        if (validationErr instanceof yup.ValidationError) {//バリデーションエラーの時
+    } catch (validationErr) {// エラーの時
+        if (validationErr instanceof yup.ValidationError) {// バリデーションエラーの時
           const errorMessages = validationErr.errors.join(', ');
-          console.log("バリデーションエラーです", errorMessages);
-          setValidationErrors(validationErrors);
       
           // エラーメッセージを設定
-          setValidationErrors({ title: errorMessages });
-          setValidationErrors({ content: errorMessages });
+          if (validationErr.path === 'title') {
+            setValidationErrors((prevErrors) => ({ ...prevErrors, title: errorMessages }));
+            console.log('jjj');
+          } 
+          if (validationErr.path === 'content') {
+            setValidationErrors((prevErrors) => ({ ...prevErrors, content: errorMessages }));
+            //console.log(errorMessages);
+          }
         } else {
           console.log("その他のエラー", validationErr);
         }
