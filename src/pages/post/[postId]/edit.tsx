@@ -46,14 +46,12 @@ export default function Edit() {
       router.push("../../../");
     } catch (validationErr) {
       if (validationErr instanceof yup.ValidationError) {
-        const errorMessages = validationErr.errors.join(", ");
-
         // エラーメッセージを設定
         if (validationErr.path === "title") {
-          setTitleValidationErrors(errorMessages);
+          setTitleValidationErrors(validationErr.errors[0]);
         }
         if (validationErr.path === "content") {
-          setContentValidationErrors(errorMessages);
+          setContentValidationErrors(validationErr.errors[0]);
         }
       } else {
         console.log("その他のエラー", validationErr);
