@@ -7,17 +7,7 @@ import { posts } from "../../types/types";
 import create from "../../styles/create.module.css";
 import React from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
-
-const errorScheme = yup.object().shape({
-  title: yup
-    .string()
-    .required("タイトルは必須項目です")
-    .max(120, "タイトルは120文字以内で入力してください"),
-  content: yup
-    .string()
-    .required("メッセージは必須項目です")
-    .max(100000, "メッセージは100000文字以内で入力してください"),
-});
+import { postsScheme } from "@/types/validation";
 
 const api = "http://localhost:18080/v1/note";
 
@@ -27,7 +17,7 @@ export default function Create() {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(errorScheme),
+    resolver: yupResolver(postsScheme),
   });
   const router = useRouter();
 

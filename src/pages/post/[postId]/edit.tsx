@@ -8,19 +8,8 @@ import React, { useState } from "react";
 import FeatchDetail from "@/apis/featchDetail";
 import create from "../../../styles/create.module.css";
 import * as yup from "yup";
-import { postsSchema } from "@/types/validation";
+import { postsScheme } from "@/types/validation";
 import { yupResolver } from "@hookform/resolvers/yup";
-
-const errorScheme = yup.object().shape({
-  title: yup
-    .string()
-    .required("タイトルは必須項目です")
-    .max(120, "タイトルは120文字以内で入力してください"),
-  content: yup
-    .string()
-    .required("メッセージは必須項目です")
-    .max(100000, "メッセージは100000文字以内で入力してください"),
-});
 
 // QueryClientのインスタンスを作成
 const queryClient = new QueryClient();
@@ -31,7 +20,7 @@ export default function Edit() {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(errorScheme),
+    resolver: yupResolver(postsScheme),
   });
   const router = useRouter();
   const { postId } = router.query;
@@ -66,7 +55,7 @@ export default function Edit() {
         </Link>
       </div>
 
-      <h1 className={create.h1}>作成ページ</h1>
+      <h1 className={create.h1}>編集ページ</h1>
       <form className={create.form} onSubmit={handleSubmit(onSubmit)}>
         <div>
           <div className={create.formGroup}>
