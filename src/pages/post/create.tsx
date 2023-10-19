@@ -27,36 +27,37 @@ const postsSchema = yup.object().shape({
 export default function Create() {
   const { control, handleSubmit, formState: { errors } } = useForm<posts>();
   const router = useRouter();
-  const [validationErrors, setValidationErrors] = useState({ title: '', content: '' }); // エラーメッセージの状態を初期化
+  const [titleValidationErrors, setTitleValidationErrors] = useState('');
+  const [contentValidationErrors, setContentValidationErrors] = useState('');
 
   const onSubmit: SubmitHandler<posts> = async (data) => {
-    try {// バリデーションチェック
-        await postsSchema.validate(data);
-      
-        // バリデーションエラーがない場合、エラーメッセージをクリア
-        setValidationErrors({ title: '', content: '' });
-        
-        const postData = { title: data.title, content: data.content };
-        await axios.post(api, postData);
-        console.log("成功しました");
-        router.push(indexPath);
+    try {
+      // バリデーションチェック
+      await postsSchema.validate(data);
 
-    } catch (validationErr) {// エラーの時
-        if (validationErr instanceof yup.ValidationError) {// バリデーションエラーの時
-          const errorMessages = validationErr.errors.join(', ');
-      
-          // エラーメッセージを設定
-          if (validationErr.path === 'title') {
-            setValidationErrors((prevErrors) => ({ ...prevErrors, title: errorMessages }));
-            console.log('jjj');
-          } 
-          if (validationErr.path === 'content') {
-            setValidationErrors((prevErrors) => ({ ...prevErrors, content: errorMessages }));
-            //console.log(errorMessages);
-          }
-        } else {
-          console.log("その他のエラー", validationErr);
+      // バリデーションエラーがない場合、エラーメッセージをクリア
+      setTitleValidationErrors('');
+      setContentValidationErrors('');
+
+      const postData = { title: data.title, content: data.content };
+      await axios.post(api, postData);
+      console.log("成功しました");
+      router.push(indexPath);
+
+    } catch (validationErr) {
+      if (validationErr instanceof yup.ValidationError) {
+        const errorMessages = validationErr.errors.join(', ');
+
+        // エラーメッセージを設定
+        if (validationErr.path === 'title') {
+          setTitleValidationErrors(errorMessages);
+        } 
+        if (validationErr.path === 'content') {
+          setContentValidationErrors(errorMessages);
         }
+      } else {
+        console.log("その他のエラー", validationErr);
+      }
     }
   };
 
@@ -82,7 +83,7 @@ export default function Create() {
                 )}
               />
               {/* バリデーションエラーメッセージを表示 */}
-              {validationErrors.title && <p className={create.errorMessage}>{validationErrors.title}</p>}
+              {titleValidationErrors && <p className={create.errorMessage}>{titleValidationErrors}</p>}
             </div>
             <div>
               <Controller
@@ -97,7 +98,7 @@ export default function Create() {
                 )}
               />
               {/* バリデーションエラーメッセージを表示 */}
-              {validationErrors.content && <p className={create.errorMessage}>{validationErrors.content}</p>}
+              {contentValidationErrors && <p className={create.errorMessage}>{contentValidationErrors}</p>}
             </div>
           </div>
           <div className={create.createButtonContainer}><input className={create.createButton} type="submit" /></div>
