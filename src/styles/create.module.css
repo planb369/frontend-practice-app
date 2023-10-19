@@ -84,3 +84,7 @@
     box-shadow: none;
 }
 /* ここまでcreateボタン */
+
+.validationMessage{
+    color: red;
+}

@@ -83,7 +83,7 @@ export default function Create() {
                 )}
               />
               {/* バリデーションエラーメッセージを表示 */}
-              {titleValidationErrors && <p className={create.errorMessage}>{titleValidationErrors}</p>}
+              {titleValidationErrors && <p className={create.validationMessage}>{titleValidationErrors}</p>}
             </div>
             <div>
               <Controller
@@ -98,7 +98,7 @@ export default function Create() {
                 )}
               />
               {/* バリデーションエラーメッセージを表示 */}
-              {contentValidationErrors && <p className={create.errorMessage}>{contentValidationErrors}</p>}
+              {contentValidationErrors && <p className={create.validationMessage}>{contentValidationErrors}</p>}
             </div>
           </div>
           <div className={create.createButtonContainer}><input className={create.createButton} type="submit" /></div>
