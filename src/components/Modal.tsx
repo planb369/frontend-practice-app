@@ -1,20 +1,22 @@
 import React from "react";
 import deleteModal from "./deleteModal.module.css";
 
+//modalの型定義
 type ModalProps = {
   showFlag: boolean;
-  setShowModal: (show: boolean) => void;
+  onModalClose: (show: boolean) => void;
   onDelete: () => void;
 };
 
 const Modal: React.FC<ModalProps> = (props) => {
+  //モーダルを閉じるボタン
   const closeModal = () => {
-    props.setShowModal(false);
+    props.onModalClose(false);
   };
 
   //削除機能
   const onClickDelete = () => {
-    // 削除処理を実行
+    // editページの削除処理を実行
     props.onDelete();
     closeModal(); // モーダルを閉じる
   };

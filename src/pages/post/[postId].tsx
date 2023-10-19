@@ -11,6 +11,7 @@ import details from "./details.module.css";
 const queryClient = new QueryClient();
 
 export default function Details() {
+  //modalの表示非表示を管理するstate
   const [showModal, setShowModal] = useState(false);
 
   const router = useRouter();
@@ -19,7 +20,7 @@ export default function Details() {
   // FeatchDetailコンポーネントを呼び出してデータを取得
   const { data, isLoading, isError } = FeatchDetail();
 
-  //ここから削除機能
+  //削除ボタンが押されたらmodalをの表示をtrueにする
   const ShowModal = () => {
     setShowModal(true);
   };
@@ -61,7 +62,7 @@ export default function Details() {
           {/* Appコンポーネントから子であるModalコンポーネントにpropsを渡す */}
           <Modal
             showFlag={showModal}
-            setShowModal={setShowModal}
+            onModalClose={setShowModal}
             onDelete={onDelete}
           />
 
