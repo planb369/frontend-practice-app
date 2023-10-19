@@ -7,6 +7,7 @@ import axios from "axios";
 import * as yup from "yup";
 import { posts } from "../../types";
 import create from "../../styles/create.module.css";
+import React, { useState } from 'react';
 
 const indexPath = '../';
 const api = 'http://localhost:18080/v1/note';
@@ -25,32 +26,40 @@ const postsSchema = yup.object().shape({
 export default function Create() {
   const { control, handleSubmit, formState: { errors } } = useForm<posts>();
   const router = useRouter();
+  const [validationErrors, setValidationErrors] = useState({}); // エラーメッセージの状態を初期化
 
-  const onSubmit: SubmitHandler<posts> = (data) => {
-    postsSchema.validate(data)
-      .then(() => {
+  const onSubmit: SubmitHandler<posts> = async (data) => {
+    try {
+        await postsSchema.validate(data);
+      
+        // バリデーションエラーがない場合、エラーメッセージをクリア
+        setValidationErrors({});
+        
         const postData = { title: data.title, content: data.content };
-        return axios.post(api, postData);
-      })
-      .then(() => {
+        await axios.post(api, postData);
         console.log("成功しました");
         router.push(indexPath);
-      })
-      .catch((validationErr) => {
-        console.log("バリデーションエラーです", validationErr);
-      })
-      .catch((err) => {
-        console.log('データ送信に失敗しました', err);
-      });
+    } catch (validationErr) {
+        if (validationErr instanceof yup.ValidationError) {
+          const errorMessages = validationErr.errors.join(', ');
+          console.log("バリデーションエラーです", errorMessages);
+          setValidationErrors(validationErrors);
+      
+          // エラーメッセージを設定
+          setValidationErrors({ title: errorMessages });
+        } else {
+          console.log("その他のエラー", validationErr);
+        }
+    }
   };
 
   return (
     <>
       <div className={create.container}>
         <div className={create.indexBtn}><Link className={create.indexBtnText} href={indexPath}>一覧画面へ戻る</Link></div>
-
+        
         <h1 className={create.h1}>作成ページ</h1>
-
+        
         <form className={create.form} onSubmit={handleSubmit(onSubmit)}>
           <div>
             <div>
@@ -65,7 +74,8 @@ export default function Create() {
                   />
                 )}
               />
-              {errors.title && <p>{errors.title.message}</p>}
+              {/* バリデーションエラーメッセージを表示 */}
+              {validationErrors.title && <p className={create.errorMessage}>{validationErrors.title}</p>}
             </div>
             <div>
               <Controller
@@ -79,7 +89,8 @@ export default function Create() {
                   />
                 )}
               />
-              {errors.content && <p>{errors.content.message}</p>}
+              {/* バリデーションエラーメッセージを表示 */}
+              {validationErrors.content && <p className={create.errorMessage}>{validationErrors.content}</p>}
             </div>
           </div>
           <div className={create.createButtonContainer}><input className={create.createButton} type="submit" /></div>
