@@ -25,9 +25,12 @@ const Modal: React.FC<ModalProps> = (props) => {
         {props.showFlag ? ( // showFlagがtrueだったらModalを表示する
             <div className={deleteModal.overlay}>
                 <div className={deleteModal.modalContent}>
-                <p>削除しますか？</p>
-                <button onClick={closeModal}>閉じる</button>
-                <button onClick={onClickDelete}>削除</button>
+                    <p className={deleteModal.confirmation}>削除しますか？</p>
+
+                    <div className={deleteModal.buttons}>
+                        <button className={deleteModal.closeButton} onClick={closeModal}>閉じる</button>
+                        <button className={deleteModal.deleteButton} onClick={onClickDelete}>削除</button>
+                    </div>
                 </div>
             </div>
         
