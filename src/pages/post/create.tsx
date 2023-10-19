@@ -5,10 +5,14 @@ import axios from "axios";
 import * as yup from "yup";
 import { posts } from "../../types/types";
 import create from "../../styles/create.module.css";
-import React, { useState } from "react";
-import { postsSchema } from "@/types/validation";
+import React from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
 
-const indexPath = "../";
+const errorScheme = yup.object().shape({
+  title: yup.string().required("タイトルは必須項目です"),
+  content: yup.string().required("メッセージは必須項目です"),
+});
+
 const api = "http://localhost:18080/v1/note";
 
 export default function Create() {
@@ -16,36 +20,22 @@ export default function Create() {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<posts>();
+  } = useForm({
+    resolver: yupResolver(errorScheme),
+  });
   const router = useRouter();
-  const [titleValidationErrors, setTitleValidationErrors] = useState("");
-  const [contentValidationErrors, setContentValidationErrors] = useState("");
 
-  const onSubmit: SubmitHandler<posts> = async (data) => {
+  const onSubmit: SubmitHandler<{ title: string; content: string }> = async (
+    data
+  ) => {
     try {
       // バリデーションチェック
-      await postsSchema.validate(data);
-
-      // バリデーションエラーがない場合、エラーメッセージをクリア
-      setTitleValidationErrors("");
-      setContentValidationErrors("");
-
       const postData = { title: data.title, content: data.content };
       await axios.post(api, postData);
       console.log("成功しました");
-      router.push(indexPath);
+      router.push("/");
     } catch (validationErr) {
-      if (validationErr instanceof yup.ValidationError) {
-        // エラーメッセージを設定
-        if (validationErr.path === "title") {
-          setTitleValidationErrors(validationErr.errors[0]);
-        }
-        if (validationErr.path === "content") {
-          setContentValidationErrors(validationErr.errors[0]);
-        }
-      } else {
-        console.log("その他のエラー", validationErr);
-      }
+      console.log("その他のエラー", validationErr);
     }
   };
 
@@ -53,7 +43,7 @@ export default function Create() {
     <>
       <div className={create.container}>
         <div className={create.indexBtn}>
-          <Link className={create.indexBtnText} href={indexPath}>
+          <Link className={create.indexBtnText} href={"/"}>
             一覧画面へ戻る
           </Link>
         </div>
@@ -74,12 +64,6 @@ export default function Create() {
                   />
                 )}
               />
-              {/* バリデーションエラーメッセージを表示 */}
-              {titleValidationErrors && (
-                <p className={create.validationMessage}>
-                  {titleValidationErrors}
-                </p>
-              )}
             </div>
             <div>
               <Controller
@@ -87,22 +71,21 @@ export default function Create() {
                 control={control}
                 render={({ field }) => (
                   <textarea
+                    {...field}
                     className={create.contentErea}
                     placeholder="メッセージ"
-                    {...field}
                   />
                 )}
               />
-              {/* バリデーションエラーメッセージを表示 */}
-              {contentValidationErrors && (
-                <p className={create.validationMessage}>
-                  {contentValidationErrors}
-                </p>
-              )}
             </div>
           </div>
           <div className={create.createButtonContainer}>
-            <input className={create.createButton} type="submit" />
+            <input
+              className={create.createButton}
+              type="submit"
+              value="送信"
+              disabled={false} // ボタンの状態をカスタマイズする場合に設定
+            />
           </div>
         </form>
       </div>
