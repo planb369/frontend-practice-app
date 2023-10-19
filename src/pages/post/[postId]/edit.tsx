@@ -7,16 +7,35 @@ import { posts } from "../../../types";
 import React, { useState } from "react";
 import FeatchDetail from '@/apis/featchDetail';
 import create from "../../../styles/create.module.css"
+import { ErrorMessage } from '@hookform/error-message';
+import * as yup from "yup";
+
+
+
+// バリデーション設定
+const postsSchema = yup.object().shape({
+    title: yup
+      .string()
+      .required("タイトルは必須項目です")
+      .max(10, "タイトルは10文字以内で入力してください"),
+    content: yup
+      .string()
+      .required("本文は必須項目です")
+      .max(10, "本文は10文字以内で入力してください"),
+  });
+
+
 
 // QueryClientのインスタンスを作成
 const queryClient = new QueryClient();
 
 export default function Edit() {
 
-    const { register, handleSubmit, formState: { errors } } = useForm<posts>();
-  
+    const { control, register, handleSubmit, formState: { errors } } = useForm<posts>();
   const router = useRouter();
   const { postId } = router.query;
+  const [titleValidationErrors, setTitleValidationErrors] = useState('');
+  const [contentValidationErrors, setContentValidationErrors] = useState('');
   const api = `http://localhost:18080/v1/note/${postId}`;
 
   
@@ -28,24 +47,36 @@ export default function Edit() {
 
 
 
-  //ここからデータ送信して編集
-  const onSubmit = (data: posts) => {
-    //ここでデータ投稿処理
+  const onSubmit: SubmitHandler<posts> = async (data) => {
+    try {
+      // バリデーションチェック
+      await postsSchema.validate(data);
 
-    const postData={title: data.title, content: data.content}
+      // バリデーションエラーがない場合、エラーメッセージをクリア
+      setTitleValidationErrors('');
+      setContentValidationErrors('');
 
-    axios.put(api,postData)
-    .then(()=>{
-        console.log("成功しました");
+      const postData = { title: data.title, content: data.content };
+      await axios.put(api, postData);
+      console.log("成功しました");
+      router.push('../../../');
 
-        //indexへ遷移
-        router.push("../../../");
+    } catch (validationErr) {
+      if (validationErr instanceof yup.ValidationError) {
+        const errorMessages = validationErr.errors.join(', ');
 
-    }).catch((err)=>{
-        console.log('データ送信に失敗しました',err);
-    })
-}
-
+        // エラーメッセージを設定
+        if (validationErr.path === 'title') {
+          setTitleValidationErrors(errorMessages);
+        } 
+        if (validationErr.path === 'content') {
+          setContentValidationErrors(errorMessages);
+        }
+      } else {
+        console.log("その他のエラー", validationErr);
+      }
+    }
+  };
  
   // データが正常に取得された場合
   return (
