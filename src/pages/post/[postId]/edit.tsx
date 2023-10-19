@@ -9,20 +9,7 @@ import FeatchDetail from '@/apis/featchDetail';
 import create from "../../../styles/create.module.css"
 import { ErrorMessage } from '@hookform/error-message';
 import * as yup from "yup";
-
-
-
-// バリデーション設定
-const postsSchema = yup.object().shape({
-    title: yup
-      .string()
-      .required("タイトルは必須項目です")
-      .max(10, "タイトルは10文字以内で入力してください"),
-    content: yup
-      .string()
-      .required("本文は必須項目です")
-      .max(10, "本文は10文字以内で入力してください"),
-  });
+import { postsSchema } from '@/types/validation';
 
 
 
