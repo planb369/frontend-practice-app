@@ -1,6 +1,5 @@
 import React from "react";
 import ModalStyle from "./ModalStyle.module.css";
-import DeleteModal from "./DeleteModal";
 
 //modalの型定義
 type ModalProps = {
@@ -9,7 +8,7 @@ type ModalProps = {
   onDelete: () => void;
 };
 
-const Modal: React.FC<ModalProps> = (props) => {
+const DeleteModal: React.FC<ModalProps> = (props) => {
   //モーダルを閉じるボタン
   const closeModal = () => {
     props.onModalClose(false);
@@ -49,4 +48,4 @@ const Modal: React.FC<ModalProps> = (props) => {
   );
 };
 
-export default Modal;
+export default DeleteModal;
