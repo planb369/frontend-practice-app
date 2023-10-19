@@ -3,7 +3,7 @@ import { useQuery, QueryClient, QueryClientProvider } from 'react-query';
 import axios from 'axios';
 import Link from 'next/link';
 import React, { useState } from "react";
-import { posts } from "../../types"; 
+import { posts } from "../../types/types"; 
 import Modal from "../../components/Modal";
 import FeatchDetail from '@/apis/featchDetail';
 import details from "../../styles/details.module.css";

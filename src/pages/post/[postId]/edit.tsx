@@ -3,7 +3,7 @@ import { useQuery, QueryClient, QueryClientProvider } from 'react-query';
 import axios from 'axios';
 import Link from 'next/link';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
-import { posts } from "../../../types"; 
+import { posts } from "../../../types/types"; 
 import React, { useState } from "react";
 import FeatchDetail from '@/apis/featchDetail';
 import create from "../../../styles/create.module.css"

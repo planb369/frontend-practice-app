@@ -2,7 +2,7 @@ import { useQuery } from 'react-query';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 
-import { posts } from '../../src/types';
+import { posts } from '../types/types';
 
 export default function FeatchDetail() {
   const router = useRouter();

@@ -3,7 +3,7 @@ import {useState,useEffect} from 'react';
 import axios from 'axios';
 import { useForm, SubmitHandler } from 'react-hook-form';//react-hooks-formß
 import Link from 'next/link';
-import { posts } from "../types"; 
+import { posts } from "../types/types"; 
 import index from "../styles/index.module.css";
 
 const createPath = '/post/create';
