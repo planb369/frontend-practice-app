@@ -1,5 +1,5 @@
 import React from "react";
-import deleteModal from "./deleteModal.module.css";
+import ModalStyle from "./ModalStyle.module.css";
 
 //modalの型定義
 type ModalProps = {
@@ -24,16 +24,16 @@ const Modal: React.FC<ModalProps> = (props) => {
   return (
     <>
       {props.showFlag ? ( // showFlagがtrueだったらModalを表示する
-        <div className={deleteModal.overlay}>
-          <div className={deleteModal.modalContent}>
-            <p className={deleteModal.confirmation}>削除しますか？</p>
+        <div className={ModalStyle.overlay}>
+          <div className={ModalStyle.modalContent}>
+            <p className={ModalStyle.confirmation}>削除しますか？</p>
 
-            <div className={deleteModal.buttons}>
-              <button className={deleteModal.closeButton} onClick={closeModal}>
+            <div className={ModalStyle.buttons}>
+              <button className={ModalStyle.closeButton} onClick={closeModal}>
                 閉じる
               </button>
               <button
-                className={deleteModal.deleteButton}
+                className={ModalStyle.deleteButton}
                 onClick={onClickDelete}
               >
                 削除
