@@ -84,7 +84,7 @@ export default function Edit() {
                 render={({ field }) => (
                   <input
                     className={create.titleErea}
-                    placeholder={data.title}
+                    defaultValue={data.title}
                     {...field}
                   />
                 )}
@@ -103,7 +103,7 @@ export default function Edit() {
                 render={({ field }) => (
                   <textarea
                     className={create.contentErea}
-                    placeholder={data.content}
+                    defaultValue={data.content}
                     {...field}
                   />
                 )}
