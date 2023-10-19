@@ -76,7 +76,7 @@ export default function Create() {
                 control={control}
                 render={({ field }) => (
                   <input
-                    className={create.errorMessage}
+                    className={create.titleErea}
                     placeholder="タイトル"
                     {...field}
                   />
@@ -91,7 +91,7 @@ export default function Create() {
                 control={control}
                 render={({ field }) => (
                   <textarea
-                    className={create.errorMessage}
+                    className={create.contentErea}
                     placeholder="メッセージ"
                     {...field}
                   />
