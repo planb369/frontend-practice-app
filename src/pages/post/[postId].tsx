@@ -5,7 +5,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import Modal from "../../components/Modal";
 import FeatchDetail from "@/apis/featchDetail";
-import details from "../../styles/details.module.css";
+import details from "./details.module.css";
 
 // QueryClientのインスタンスを作成
 const queryClient = new QueryClient();

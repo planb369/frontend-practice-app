@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import * as yup from "yup";
 import { posts } from "../../types/types";
-import create from "../../styles/create.module.css";
+import create from "./create.module.css";
 import React from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { postsScheme } from "@/types/validation";

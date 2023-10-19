@@ -6,7 +6,7 @@ import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { posts } from "../../../types/types";
 import React, { useState } from "react";
 import FeatchDetail from "@/apis/featchDetail";
-import create from "../../../styles/create.module.css";
+import create from "../create.module.css";
 import * as yup from "yup";
 import { postsScheme } from "@/types/validation";
 import { yupResolver } from "@hookform/resolvers/yup";

@@ -1,5 +1,5 @@
 import React from "react";
-import deleteModal from "../styles/deleteModal.module.css";
+import deleteModal from "./deleteModal.module.css";
 
 type ModalProps = {
   showFlag: boolean;

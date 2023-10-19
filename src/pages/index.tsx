@@ -2,7 +2,7 @@ import { useQuery, QueryClient } from "react-query";
 import axios from "axios";
 import Link from "next/link";
 import { posts } from "../types/types";
-import index from "../styles/index.module.css";
+import index from "./index.module.css";
 
 const createPath = "/post/create";
 
