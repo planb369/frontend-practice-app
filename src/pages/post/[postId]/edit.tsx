@@ -11,9 +11,6 @@ import * as yup from "yup";
 import { postsScheme } from "@/types/validation";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-// QueryClientのインスタンスを作成
-const queryClient = new QueryClient();
-
 export default function Edit() {
   const {
     control,
