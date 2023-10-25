@@ -1,3 +1,4 @@
+import { baseURL } from "@/components/baseURL";
 import { useQuery, QueryClient } from "react-query";
 import axios from "axios";
 import { posts } from "../../types/types";
@@ -10,7 +11,7 @@ type ApiResponse = {
 
 export default function useFetchIndex() {
   const queryClient = new QueryClient();
-  const api = "http://localhost:18080/v1/note";
+  const api = baseURL;
 
   const {
     data: posts,

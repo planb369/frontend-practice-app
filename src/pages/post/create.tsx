@@ -1,8 +1,8 @@
+import { baseURL } from "@/components/baseURL";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import axios from "axios";
-import * as yup from "yup";
 import { posts } from "../../types/types";
 import create from "./create.module.css";
 import common from "../../components/common.module.css";
@@ -11,7 +11,7 @@ import React from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { postsScheme } from "@/types/validation";
 
-const api = "http://localhost:18080/v1/note";
+const api = baseURL;
 
 //投稿機能
 const createPost = async (postData: Omit<posts, "id">) => {

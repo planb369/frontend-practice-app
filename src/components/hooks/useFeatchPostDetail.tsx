@@ -1,3 +1,4 @@
+import { baseURL } from "@/components/baseURL";
 import { useQuery } from "react-query";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -7,7 +8,7 @@ import { posts } from "../../types/types";
 export default function useFeatchPostDetail() {
   const router = useRouter();
   const { postId } = router.query;
-  const api = `http://localhost:18080/v1/note/${postId}`;
+  const api = `${baseURL}/${postId}`;
 
   // useQueryフックを使用してデータを取得
   const { data, isLoading, isError } = useQuery<posts>(`${postId}`, () => {

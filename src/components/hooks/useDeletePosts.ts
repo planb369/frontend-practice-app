@@ -1,10 +1,7 @@
-import React from "react";
-import ModalStyle from "./ModalStyle.module.css";
+import { baseURL } from "@/components/baseURL";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useMutation } from "react-query";
-import Modal from "../Modal";
-import { AppRouterContext } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 //modalの型定義
 type ModalProps = {
@@ -15,7 +12,7 @@ type ModalProps = {
 
 //削除機能
 const deletePost = async (postId: string) => {
-  const api = `http://localhost:18080/v1/note/${postId}`;
+  const api = `${baseURL}/${postId}`;
   const res = await axios.delete(api);
   return res.data;
 };
