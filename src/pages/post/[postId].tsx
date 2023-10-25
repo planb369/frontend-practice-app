@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import Modal from "../../components/Modal";
 import FeatchDetail from "@/components/hooks/useFeatchPostDetail";
 import details from "./details.module.css";
+import common from "../../components/common.module.css";
 
 // QueryClientのインスタンスを作成
 const queryClient = new QueryClient();
@@ -28,14 +29,14 @@ export default function Details() {
   // データが正常に取得された場合
   return (
     <>
-      <div className={details.container}>
+      <div className={common.container}>
         <div className={details.indexBtn}>
           <Link className={details.indexBtnText} href={`../`}>
             一覧画面へ戻る
           </Link>
         </div>
 
-        <h1 className={details.h1}>記事詳細</h1>
+        <h1 className={common.h1}>記事詳細</h1>
         <div>
           <p className={details.title}>{data?.title}</p>
           <p className={details.content}>{data?.content}</p>
