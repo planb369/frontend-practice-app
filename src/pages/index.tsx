@@ -1,8 +1,7 @@
-import { useQuery, QueryClient } from "react-query";
-import axios from "axios";
 import Link from "next/link";
 import { posts } from "../types/types";
 import index from "./index.module.css";
+import useFetchIndex from "@/components/hooks/useFetchIndex";
 
 const createPath = "/post/create";
 
@@ -11,21 +10,8 @@ type ApiResponse = {
 };
 
 export default function Home() {
-  const queryClient = new QueryClient();
-  const api = "http://localhost:18080/v1/note";
-
-  const {
-    data: posts,
-    isLoading,
-    isError,
-  } = useQuery<posts[]>("posts", async () => {
-    try {
-      const response = await axios.get<ApiResponse>(api);
-      return response.data.items;
-    } catch (err) {
-      throw new Error("データの取得に失敗しました");
-    }
-  });
+  // FeatchDetailコンポーネントを呼び出してデータを取得
+  const { posts, isLoading, isError } = useFetchIndex();
 
   return (
     <>
