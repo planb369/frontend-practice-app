@@ -1,4 +1,4 @@
-import { baseURL } from "@/components/baseURL";
+import { baseURL } from "@/baseURL";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useMutation } from "react-query";

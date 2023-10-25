@@ -1,4 +1,4 @@
-import { baseURL } from "@/components/baseURL";
+import { baseURL } from "@/baseURL";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import Link from "next/link";
 import { useRouter } from "next/router";

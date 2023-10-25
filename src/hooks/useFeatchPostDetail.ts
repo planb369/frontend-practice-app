@@ -1,5 +1,5 @@
 //詳細情報を取得する処理
-import { baseURL } from "@/components/baseURL";
+import { baseURL } from "@/baseURL";
 import { useQuery } from "react-query";
 import axios from "axios";
 import { useRouter } from "next/router";

@@ -1,5 +1,5 @@
 //indexページのデータを取得する処理
-import { baseURL } from "@/components/baseURL";
+import { baseURL } from "@/baseURL";
 import { useQuery, QueryClient } from "react-query";
 import axios from "axios";
 import { posts } from "../types/types";
