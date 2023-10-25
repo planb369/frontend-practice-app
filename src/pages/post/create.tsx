@@ -85,11 +85,7 @@ export default function Create() {
           </div>
         </div>
         <div className={create.createButtonContainer}>
-          <button
-            className={create.createButton}
-            type="submit"
-            disabled={mutation.isLoading}
-          >
+          <button className={create.createButton} type="submit">
             投稿
           </button>
         </div>
