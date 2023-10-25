@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { posts } from "../../../types/types";
 import React, { useState } from "react";
-import FeatchDetail from "@/apis/featchDetail";
+import FeatchDetail from "@/components/hooks/useFeatchPostDetail";
 import create from "../create.module.css";
 import * as yup from "yup";
 import { postsScheme } from "@/types/validation";

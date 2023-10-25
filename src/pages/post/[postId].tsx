@@ -4,7 +4,7 @@ import axios from "axios";
 import Link from "next/link";
 import React, { useState } from "react";
 import Modal from "../../components/Modal";
-import FeatchDetail from "@/apis/featchDetail";
+import FeatchDetail from "@/components/hooks/useFeatchPostDetail";
 import details from "./details.module.css";
 
 // QueryClientのインスタンスを作成
