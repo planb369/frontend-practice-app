@@ -7,6 +7,7 @@ import { posts } from "../../../types/types";
 import React, { useState } from "react";
 import FeatchDetail from "@/components/hooks/useFeatchPostDetail";
 import create from "../create.module.css";
+import common from "../../../components/common.module.css";
 import * as yup from "yup";
 import { postsScheme } from "@/types/validation";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -45,7 +46,7 @@ export default function Edit() {
 
   // データが正常に取得された場合
   return (
-    <div className={create.container}>
+    <div className={common.container}>
       <div className={create.indexBtn}>
         <Link className={create.indexBtnText} href={"/"}>
           一覧画面へ戻る

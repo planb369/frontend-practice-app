@@ -5,6 +5,7 @@ import axios from "axios";
 import * as yup from "yup";
 import { posts } from "../../types/types";
 import create from "./create.module.css";
+import common from "../../components/common.module.css";
 import { useMutation } from "react-query";
 import React from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -51,7 +52,7 @@ export default function Create() {
   };
 
   return (
-    <div className={create.container}>
+    <div className={common.container}>
       <div className={create.indexBtn}>
         <Link className={create.indexBtnText} href={"/"}>
           一覧画面へ戻る
