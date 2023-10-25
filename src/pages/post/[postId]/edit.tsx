@@ -1,14 +1,11 @@
 import { useRouter } from "next/router";
-import { useQuery, QueryClient } from "react-query";
 import axios from "axios";
 import Link from "next/link";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
-import { posts } from "../../../types/types";
 import React, { useState } from "react";
-import FeatchDetail from "@/components/hooks/useFeatchPostDetail";
+import useFeatchPostDetail from "@/components/hooks/useFeatchPostDetail";
 import create from "../create.module.css";
 import common from "../../../components/common.module.css";
-import * as yup from "yup";
 import { postsScheme } from "@/types/validation";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -27,7 +24,7 @@ export default function Edit() {
   const api = `http://localhost:18080/v1/note/${postId}`;
 
   // 対象の詳細データを取得
-  const { data, isLoading, isError } = FeatchDetail();
+  const { data, isLoading, isError } = useFeatchPostDetail();
   // ローディング中の場合
   if (!data) return <p>Loading...</p>;
 
