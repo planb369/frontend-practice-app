@@ -5,13 +5,21 @@ import axios from "axios";
 import * as yup from "yup";
 import { posts } from "../../types/types";
 import create from "./create.module.css";
+import { useMutation } from "react-query";
 import React from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { postsScheme } from "@/types/validation";
 
 const api = "http://localhost:18080/v1/note";
 
+//投稿機能
+const createPost = async (postData: Omit<posts, "id">) => {
+  const res = await axios.post(api, postData);
+  return res.data;
+};
+
 export default function Create() {
+  //useFromから必要なものを取得
   const {
     control,
     handleSubmit,
@@ -21,14 +29,22 @@ export default function Create() {
   });
   const router = useRouter();
 
+  const mutation = useMutation(createPost, {
+    onSuccess: () => {
+      console.log("成功しました");
+      router.push("/");
+    },
+    onError: (err) => {
+      console.log("投稿に失敗しました", err);
+    },
+  });
+
   const onSubmit: SubmitHandler<{ title: string; content: string }> = async (
     data
   ) => {
     try {
       const postData = { title: data.title, content: data.content };
-      await axios.post(api, postData);
-      console.log("成功しました");
-      router.push("/");
+      mutation.mutate(postData);
     } catch (err) {
       console.log("データが送信できませんでした", err);
     }
@@ -69,7 +85,11 @@ export default function Create() {
           </div>
         </div>
         <div className={create.createButtonContainer}>
-          <button className={create.createButton} type="submit">
+          <button
+            className={create.createButton}
+            type="submit"
+            disabled={mutation.isLoading}
+          >
             投稿
           </button>
         </div>
