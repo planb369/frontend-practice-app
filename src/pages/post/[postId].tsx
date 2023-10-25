@@ -25,20 +25,6 @@ export default function Details() {
     setShowModal(true);
   };
 
-  const onDelete = () => {
-    const api = `http://localhost:18080/v1/note/${postId}`;
-    axios
-      .delete(api)
-      .then(() => {
-        console.log("成功しました");
-        // indexへ遷移
-        router.push("../../");
-      })
-      .catch((err) => {
-        console.log("データ送信に失敗しました", err);
-      });
-  };
-
   // データが正常に取得された場合
   return (
     <>
@@ -60,11 +46,7 @@ export default function Details() {
             削除
           </button>
           {/* Appコンポーネントから子であるModalコンポーネントにpropsを渡す */}
-          <Modal
-            showFlag={showModal}
-            onModalClose={setShowModal}
-            onDelete={onDelete}
-          />
+          <Modal showFlag={showModal} onModalClose={setShowModal} />
 
           <div className={details.editButton}>
             <Link className={details.edit} href={`${postId}/edit`}>

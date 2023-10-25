@@ -1,12 +1,13 @@
+//Modalの表示と閉じる処理をする
+
 import React from "react";
 import ModalStyle from "./ModalStyle.module.css";
-import DeleteModal from "./DeleteModal";
+import { useDeletePost } from "./useDeletePosts";
 
 //modalの型定義
 type ModalProps = {
   showFlag: boolean;
   onModalClose: (show: boolean) => void;
-  onDelete: () => void;
 };
 
 const Modal: React.FC<ModalProps> = (props) => {
@@ -15,12 +16,8 @@ const Modal: React.FC<ModalProps> = (props) => {
     props.onModalClose(false);
   };
 
-  //削除機能
-  const onClickDelete = () => {
-    // editページの削除処理を実行
-    props.onDelete();
-    closeModal(); // モーダルを閉じる
-  };
+  //DeleteModalを呼び出し
+  const { onDelete } = useDeletePost();
 
   return (
     <>
@@ -33,10 +30,7 @@ const Modal: React.FC<ModalProps> = (props) => {
               <button className={ModalStyle.closeButton} onClick={closeModal}>
                 閉じる
               </button>
-              <button
-                className={ModalStyle.deleteButton}
-                onClick={onClickDelete}
-              >
+              <button className={ModalStyle.deleteButton} onClick={onDelete}>
                 削除
               </button>
             </div>
