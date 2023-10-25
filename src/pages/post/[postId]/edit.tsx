@@ -1,3 +1,4 @@
+import { baseURL } from "@/components/baseURL";
 import { useRouter } from "next/router";
 import axios from "axios";
 import Link from "next/link";
@@ -8,8 +9,19 @@ import create from "../create.module.css";
 import common from "../../../components/common.module.css";
 import { postsScheme } from "@/types/validation";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useMutation } from "react-query";
+import { posts } from "@/types/types";
+
+const api = baseURL;
+
+//編集機能
+const editPost = async (postData: Omit<posts, "id">) => {
+  const res = await axios.post(api, postData);
+  return res.data;
+};
 
 export default function Edit() {
+  //useFromから必要なものを取得
   const {
     control,
     handleSubmit,
@@ -19,26 +31,31 @@ export default function Edit() {
   });
   const router = useRouter();
   const { postId } = router.query;
-  const [titleValidationErrors, setTitleValidationErrors] = useState("");
-  const [contentValidationErrors, setContentValidationErrors] = useState("");
-  const api = `http://localhost:18080/v1/note/${postId}`;
 
   // 対象の詳細データを取得
   const { data, isLoading, isError } = useFeatchPostDetail();
   // ローディング中の場合
   if (!data) return <p>Loading...</p>;
 
-  //編集を投稿
+  //useMutationからeditPostを実行
+  const mutation = useMutation(editPost, {
+    onSuccess: () => {
+      console.log("成功しました");
+      router.push("/");
+    },
+    onError: (err) => {
+      console.log("投稿に失敗しました", err);
+    },
+  });
+
   const onSubmit: SubmitHandler<{ title: string; content: string }> = async (
     data
   ) => {
     try {
       const postData = { title: data.title, content: data.content };
-      await axios.put(api, postData);
-      console.log("成功しました");
-      router.push("/");
+      mutation.mutate(postData);
     } catch (err) {
-      console.log("データが送信できませんでした", err);
+      console.log("データが編集できませんでした", err);
     }
   };
 
