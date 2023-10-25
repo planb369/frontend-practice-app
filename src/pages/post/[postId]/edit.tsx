@@ -2,14 +2,17 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import Link from "next/link";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
-import React, { useState } from "react";
+import React from "react";
 import useFeatchPostDetail from "@/hooks/useFeatchPostDetail";
 import create from "../create.module.css";
 import common from "../../../components/common.module.css";
 import { postsScheme } from "@/types/validation";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useMutation } from "react-query";
+import { posts } from "@/types/types";
 
 export default function Edit() {
+  //useFromから必要なものを取得
   const {
     control,
     handleSubmit,
@@ -17,24 +20,33 @@ export default function Edit() {
   } = useForm({
     resolver: yupResolver(postsScheme),
   });
+
   const router = useRouter();
   const { postId } = router.query;
-  const [titleValidationErrors, setTitleValidationErrors] = useState("");
-  const [contentValidationErrors, setContentValidationErrors] = useState("");
   const api = `http://localhost:18080/v1/note/${postId}`;
 
   // 対象の詳細データを取得
   const { data, isLoading, isError } = useFeatchPostDetail();
-  // ローディング中の場合
-  if (!data) return <p>Loading...</p>;
 
-  //編集を投稿
+  // 編集処理
+  const editPostMutation = async (postData: Omit<posts, "id">) => {
+    const response = await axios.put(api, postData);
+    return response.data; // 編集されたデータを返す
+  };
+
+  //useMutationから必要なものを取得
+  const {
+    mutate,
+    isLoading: isMutating,
+    isError: isMutatingError,
+  } = useMutation(editPostMutation);
+
+  // フォームのonSubmit
   const onSubmit: SubmitHandler<{ title: string; content: string }> = async (
     data
   ) => {
     try {
-      const postData = { title: data.title, content: data.content };
-      await axios.put(api, postData);
+      await mutate(data); // 編集を実行
       console.log("成功しました");
       router.push("/");
     } catch (err) {
@@ -42,7 +54,6 @@ export default function Edit() {
     }
   };
 
-  // データが正常に取得された場合
   return (
     <div className={common.container}>
       <div className={create.indexBtn}>
@@ -61,7 +72,7 @@ export default function Edit() {
               control={control}
               render={({ field }) => (
                 <input
-                  defaultValue={data.title}
+                  defaultValue={data && data.title}
                   className={create.titleErea}
                   type="text"
                   {...field}
@@ -77,7 +88,7 @@ export default function Edit() {
               control={control}
               render={({ field }) => (
                 <textarea
-                  defaultValue={data.content}
+                  defaultValue={data && data.content}
                   className={create.contentErea}
                   {...field}
                 />
