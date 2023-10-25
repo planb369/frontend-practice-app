@@ -2,7 +2,7 @@ import React from "react";
 import ModalStyle from "./ModalStyle.module.css";
 import axios from "axios";
 import { useRouter } from "next/router";
-import Modal from "./Modal";
+import Modal from "../Modal";
 
 //modalの型定義
 type ModalProps = {

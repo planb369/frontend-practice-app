@@ -2,7 +2,7 @@
 
 import React from "react";
 import ModalStyle from "./ModalStyle.module.css";
-import { useDeletePost } from "./useDeletePosts";
+import { useDeletePost } from "./hooks/useDeletePosts";
 
 //modalの型定義
 type ModalProps = {
