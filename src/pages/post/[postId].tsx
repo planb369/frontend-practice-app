@@ -4,7 +4,7 @@ import axios from "axios";
 import Link from "next/link";
 import React, { useState } from "react";
 import Modal from "../../components/Modal";
-import useFeatchPostDetail from "@/apis/useFeatchPostDetail";
+import useFeatchPostDetail from "@/hooks/useFeatchPostDetail";
 import details from "./details.module.css";
 import common from "../../components/common.module.css";
 

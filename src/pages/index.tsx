@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { posts } from "../types/types";
 import index from "./index.module.css";
-import useFetchIndex from "@/apis/useFetchIndex";
+import useFetchIndex from "@/hooks/useFetchIndex";
 
 const createPath = "/post/create";
 
