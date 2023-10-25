@@ -5,10 +5,6 @@ import useFetchIndex from "@/hooks/useFetchIndex";
 
 const createPath = "/post/create";
 
-type ApiResponse = {
-  items: posts[];
-};
-
 export default function Home() {
   // FeatchDetailコンポーネントを呼び出してデータを取得
   const { posts, isLoading, isError } = useFetchIndex();
