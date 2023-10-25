@@ -9,7 +9,7 @@ import common from "../../../components/common.module.css";
 import { postsScheme } from "@/types/validation";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "react-query";
-import { posts } from "@/types/types";
+import { Posts } from "@/types/types";
 
 export default function Edit() {
   //useFromから必要なものを取得
@@ -29,7 +29,7 @@ export default function Edit() {
   const { data, isLoading, isError } = useFeatchPostDetail();
 
   // 編集処理
-  const editPostMutation = async (postData: Omit<posts, "id">) => {
+  const editPostMutation = async (postData: Omit<Posts, "id">) => {
     const response = await axios.put(api, postData);
     return response.data; // 編集されたデータを返す
   };

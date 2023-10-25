@@ -1,5 +1,5 @@
 //型定義
-export type posts = {
+export type Posts = {
   id: string;
   title: string;
   content: string;

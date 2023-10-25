@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { posts } from "../types/types";
 import index from "./index.module.css";
 import useFetchIndex from "@/hooks/useFetchIndex";
 

@@ -3,7 +3,7 @@ import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import axios from "axios";
-import { posts } from "../../types/types";
+import { Posts } from "../../types/types";
 import create from "./create.module.css";
 import common from "../../components/common.module.css";
 import { useMutation } from "react-query";
@@ -14,7 +14,7 @@ import { postsScheme } from "@/types/validation";
 const api = baseURL;
 
 //投稿機能
-const createPost = async (postData: Omit<posts, "id">) => {
+const createPost = async (postData: Omit<Posts, "id">) => {
   const res = await axios.post(api, postData);
   return res.data;
 };

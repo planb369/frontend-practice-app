@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
 import { QueryClient } from "react-query";
-import axios from "axios";
 import Link from "next/link";
 import React, { useState } from "react";
 import Modal from "../../components/Modal";
