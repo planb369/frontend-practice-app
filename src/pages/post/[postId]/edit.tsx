@@ -4,8 +4,8 @@ import Link from "next/link";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import React from "react";
 import useFeatchPostDetail from "@/hooks/useFeatchPostDetail";
-import create from "../create.module.css";
-import common from "../../../components/common.module.css";
+import create from "@/pages/post/create/create.module.css";
+import common from "@/components/common.module.css";
 import { postsScheme } from "@/types/validation";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "react-query";
@@ -57,7 +57,7 @@ export default function Edit() {
   return (
     <div className={common.container}>
       <div className={create.indexBtn}>
-        <Link className={create.indexBtnText} href={"/"}>
+        <Link className={create.indexBtnText} href={"/index"}>
           一覧画面へ戻る
         </Link>
       </div>

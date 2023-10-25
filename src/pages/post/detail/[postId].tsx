@@ -2,10 +2,10 @@ import { useRouter } from "next/router";
 import { QueryClient } from "react-query";
 import Link from "next/link";
 import React, { useState } from "react";
-import Modal from "../../components/Modal";
+import Modal from "../../../components/Modal";
 import useFeatchPostDetail from "@/hooks/useFeatchPostDetail";
 import details from "./details.module.css";
-import common from "../../components/common.module.css";
+import common from "@/components/common.module.css";
 
 // QueryClientのインスタンスを作成
 const queryClient = new QueryClient();
@@ -30,7 +30,7 @@ export default function Details() {
     <>
       <div className={common.container}>
         <div className={details.indexBtn}>
-          <Link className={details.indexBtnText} href={"/"}>
+          <Link className={details.indexBtnText} href={"/index"}>
             一覧画面へ戻る
           </Link>
         </div>
@@ -49,7 +49,7 @@ export default function Details() {
           <Modal showFlag={showModal} onModalClose={setShowModal} />
 
           <div className={details.editButton}>
-            <Link className={details.edit} href={`${postId}/edit`}>
+            <Link className={details.edit} href={`../${postId}/edit`}>
               編集
             </Link>
           </div>
