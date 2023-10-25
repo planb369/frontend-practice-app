@@ -4,7 +4,7 @@ import axios from "axios";
 import Link from "next/link";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import React, { useState } from "react";
-import useFeatchPostDetail from "@/components/hooks/useFeatchPostDetail";
+import useFeatchPostDetail from "@/apis/useFeatchPostDetail";
 import create from "../create.module.css";
 import common from "../../../components/common.module.css";
 import { postsScheme } from "@/types/validation";

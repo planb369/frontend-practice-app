@@ -16,7 +16,7 @@ const Modal: React.FC<ModalProps> = (props) => {
     props.onModalClose(false);
   };
 
-  //DeleteModalを呼び出し
+  //投稿削除機能を呼び出し
   const { onDelete } = useDeletePost();
 
   return (

@@ -1,9 +1,10 @@
+//詳細情報を取得する処理
 import { baseURL } from "@/components/baseURL";
 import { useQuery } from "react-query";
 import axios from "axios";
 import { useRouter } from "next/router";
 
-import { posts } from "../../types/types";
+import { posts } from "../types/types";
 
 export default function useFeatchPostDetail() {
   const router = useRouter();

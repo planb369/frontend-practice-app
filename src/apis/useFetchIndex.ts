@@ -1,7 +1,8 @@
+//indexページのデータを取得する処理
 import { baseURL } from "@/components/baseURL";
 import { useQuery, QueryClient } from "react-query";
 import axios from "axios";
-import { posts } from "../../types/types";
+import { posts } from "../types/types";
 
 const createPath = "/post/create";
 

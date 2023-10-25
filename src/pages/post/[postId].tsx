@@ -4,7 +4,7 @@ import axios from "axios";
 import Link from "next/link";
 import React, { useState } from "react";
 import Modal from "../../components/Modal";
-import FeatchDetail from "@/components/hooks/useFeatchPostDetail";
+import useFeatchPostDetail from "@/apis/useFeatchPostDetail";
 import details from "./details.module.css";
 import common from "../../components/common.module.css";
 
@@ -19,7 +19,7 @@ export default function Details() {
   const { postId } = router.query;
 
   // FeatchDetailコンポーネントを呼び出してデータを取得
-  const { data, isLoading, isError } = FeatchDetail();
+  const { data, isLoading, isError } = useFeatchPostDetail();
 
   //削除ボタンが押されたらmodalをの表示をtrueにする
   const ShowModal = () => {
