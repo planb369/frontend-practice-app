@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { QueryClient } from "react-query";
 import Link from "next/link";
 import React, { useState } from "react";
-import Modal from "../../../components/Modal";
+import { DeleteModal } from "@/components/DeleteModal";
 import useFeatchPostDetail from "@/hooks/useFeatchPostDetail";
 import details from "./details.module.css";
 import common from "@/components/common.module.css";
@@ -46,7 +46,10 @@ export default function Details() {
             削除
           </button>
           {/* Appコンポーネントから子であるModalコンポーネントにpropsを渡す */}
-          <Modal showFlag={showModal} onModalClose={setShowModal} />
+          <DeleteModal
+            showFlag={showModal}
+            onModalClose={() => setShowModal(false)}
+          />
 
           <div className={details.editButton}>
             <Link className={details.edit} href={`../${postId}/edit`}>

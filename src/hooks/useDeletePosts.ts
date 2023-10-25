@@ -26,7 +26,7 @@ export const useDeletePost = () => {
   const mutation = useMutation(() => deletePost(postId as string), {
     onSuccess: () => {
       console.log("成功しました");
-      router.push("/");
+      router.push("/index");
     },
     onError: (err) => {
       console.log("削除に失敗しました");
