@@ -31,7 +31,7 @@ export default function Details() {
     <>
       <div className={common.container}>
         <div className={details.indexBtn}>
-          <Link className={details.indexBtnText} href={`../`}>
+          <Link className={details.indexBtnText} href={"/"}>
             一覧画面へ戻る
           </Link>
         </div>

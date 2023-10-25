@@ -28,6 +28,7 @@ export default function Edit() {
   // ローディング中の場合
   if (!data) return <p>Loading...</p>;
 
+  //編集を投稿
   const onSubmit: SubmitHandler<{ title: string; content: string }> = async (
     data
   ) => {
