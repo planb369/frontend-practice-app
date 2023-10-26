@@ -7,9 +7,6 @@ import useFeatchPostDetail from "@/hooks/useFeatchPostDetail";
 import details from "./details.module.css";
 import common from "@/components/common.module.css";
 
-// QueryClientのインスタンスを作成
-const queryClient = new QueryClient();
-
 export default function Details() {
   //modalの表示非表示を管理するstate
   const [showModal, setShowModal] = useState(false);
@@ -45,10 +42,10 @@ export default function Details() {
           <button className={details.deleteButton} onClick={ShowModal}>
             削除
           </button>
-          {/* Appコンポーネントから子であるModalコンポーネントにpropsを渡す */}
+          {/* 子コンポーネントのDeleteModalを呼び出す */}
           <DeleteModal
             showFlag={showModal}
-            onModalClose={() => setShowModal(false)}
+            onModalClose={() => setShowModal(false)} //閉じる操作しかさせない
           />
 
           <div className={details.editButton}>
