@@ -33,7 +33,7 @@ export default function Create() {
   const mutation = useMutation(createPost, {
     onSuccess: () => {
       console.log("成功しました");
-      router.push("/");
+      router.push("/index");
     },
     onError: (err) => {
       console.log("投稿に失敗しました", err);
@@ -54,7 +54,7 @@ export default function Create() {
   return (
     <div className={common.container}>
       <div className={create.indexBtn}>
-        <Link className={create.indexBtnText} href={"/"}>
+        <Link className={create.indexBtnText} href={"/index"}>
           一覧画面へ戻る
         </Link>
       </div>

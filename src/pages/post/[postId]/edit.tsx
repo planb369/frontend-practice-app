@@ -48,7 +48,7 @@ export default function Edit() {
     try {
       await mutate(data); // 編集を実行
       console.log("成功しました");
-      router.push("/");
+      router.push("/index");
     } catch (err) {
       console.log("データが送信できませんでした", err);
     }
