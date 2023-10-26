@@ -8,9 +8,9 @@
 }
 .base[data-size="large"] {
   margin-top: 60px;
-  width: 180px;
-  height: 60px;
-  font-size: 20px;
+  width: 200px;
+  height: 80px;
+  font-size: 30px;
 }
 
 /* data-colorがredの場合に適用されるという意味 */

@@ -29,7 +29,7 @@ export default function Details() {
         <div className={details.indexBtn}>
           <Link className={details.indexBtnText} href={"/index"}>
             <Button color="gray" size="large">
-              一覧画面へ戻る
+              一覧に戻る
             </Button>
           </Link>
         </div>

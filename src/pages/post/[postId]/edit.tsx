@@ -11,6 +11,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "react-query";
 import { Posts } from "@/types/types";
 import { baseURL } from "@/baseURL";
+import { Button } from "@/components/Button/index";
 
 export default function Edit() {
   //useFromからフォーム制御に必要なものを取得する
@@ -61,11 +62,11 @@ export default function Edit() {
 
   return (
     <div className={common.container}>
-      <div className={create.indexBtn}>
-        <Link className={create.indexBtnText} href={"/index"}>
-          一覧画面へ戻る
-        </Link>
-      </div>
+      <Link className={create.indexBtnText} href={"/index"}>
+        <Button color="gray" size="large">
+          一覧に戻る
+        </Button>
+      </Link>
 
       <h1 className={create.h1}>編集ページ</h1>
       <form className={create.form} onSubmit={handleSubmit(onSubmit)}>
