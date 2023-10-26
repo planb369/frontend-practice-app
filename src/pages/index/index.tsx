@@ -1,6 +1,7 @@
 import Link from "next/link";
 import index from "./index.module.css";
 import useFetchIndex from "@/hooks/useFetchIndex";
+import { Button } from "@/components/Button/index";
 
 export default function Home() {
   // FeatchDetailコンポーネントを呼び出してデータを取得
@@ -17,9 +18,11 @@ export default function Home() {
             </Link>
           </div>
         ))}
-        <div className={index.addBtn}>
-          <Link className={index.add} href={"../post/create/create"}>
-            Add
+        <div className={index.addBtnContainer}>
+          <Link href={"../post/create/create"}>
+            <Button color="green" size="large">
+              追加
+            </Button>
           </Link>
         </div>
       </div>

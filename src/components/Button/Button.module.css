@@ -24,3 +24,7 @@
 .base[data-color="gray"] {
   background-color: rgb(197, 197, 197);
 }
+
+.base[data-color="green"] {
+  background-color: rgb(95, 255, 202);
+}
