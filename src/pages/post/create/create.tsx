@@ -100,9 +100,9 @@ export default function Create() {
           </div>
         </div>
         <div className={create.createButtonContainer}>
-          <button className={create.createButton} type="submit">
+          <Button color="green" size="large" type="submit">
             投稿
-          </button>
+          </Button>
         </div>
       </form>
     </div>

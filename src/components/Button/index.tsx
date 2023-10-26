@@ -5,7 +5,11 @@ type Props = {
   onClick?: () => void; //onClickが設定されていれば実行できるようにする
   color?: "red" | "gray" | "blue" | "green";
   size?: "small" | "large";
+  type?: "submit";
 };
+
+// type 属性を適用するための変数
+const buttonType = "submit";
 
 export const Button = (props: Props) => {
   return (
@@ -15,6 +19,7 @@ export const Button = (props: Props) => {
       data-color={props.color ?? "gray"}
       data-size={props.size ?? "small"}
       className={styles.base}
+      type={props.type}
     >
       {props.children}
     </button>
