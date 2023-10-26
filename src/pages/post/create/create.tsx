@@ -42,6 +42,7 @@ export default function Create() {
     },
   });
 
+  //formの投稿ボタンを押したときに実行されるonSubmit
   //SubmitHandlerはReact Hook Formで使用される型
   //titleとcontentオブジェクトを受け取る
   const onSubmit: SubmitHandler<{ title: string; content: string }> = async (

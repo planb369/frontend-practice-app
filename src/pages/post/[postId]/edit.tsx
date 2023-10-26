@@ -10,38 +10,43 @@ import { postsScheme } from "@/types/validation";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "react-query";
 import { Posts } from "@/types/types";
+import { baseURL } from "@/baseURL";
 
 export default function Edit() {
-  //useFromから必要なものを取得
+  //useFromからフォーム制御に必要なものを取得する
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm({
+    //オプションとしてバリデーションも取得する。バリデーションルールは自作したもの
     resolver: yupResolver(postsScheme),
   });
 
   const router = useRouter();
   const { postId } = router.query;
-  const api = `http://localhost:18080/v1/note/${postId}`;
+  const api = `${baseURL}/${postId}`;
 
   // 対象の詳細データを取得
   const { data, isLoading, isError } = useFeatchPostDetail();
 
-  // 編集処理
+  // 編集処理 データの型としてidを除く
   const editPostMutation = async (postData: Omit<Posts, "id">) => {
     const response = await axios.put(api, postData);
     return response.data; // 編集されたデータを返す
   };
 
   //useMutationから必要なものを取得
+  //editPostMutation関数をmutateとして登録
   const {
     mutate,
     isLoading: isMutating,
     isError: isMutatingError,
   } = useMutation(editPostMutation);
 
-  // フォームのonSubmit
+  //formの投稿ボタンを押したときに実行されるonSubmit
+  //SubmitHandlerはReact Hook Formで使用される型らしい
+  //titleとcontentをオブジェクトで受け取る
   const onSubmit: SubmitHandler<{ title: string; content: string }> = async (
     data
   ) => {
@@ -67,9 +72,11 @@ export default function Edit() {
         <div>
           <div className={create.formGroup}>
             <label htmlFor="title">タイトル:</label>
+            {/* reactHookFromと連携させるためにControllerコンポーネントを使用する */}
             <Controller
-              name="title"
-              control={control}
+              name="title" //deta.titleになる部分
+              control={control} //これでnameの追跡ができるようになるらしい
+              // render={({ field })で変更がReact Hook Formによって追跡され制御できるらしい
               render={({ field }) => (
                 <input
                   defaultValue={data && data.title}
