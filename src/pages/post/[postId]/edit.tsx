@@ -12,6 +12,7 @@ import { useMutation } from "react-query";
 import { Posts } from "@/types/types";
 import { baseURL } from "@/baseURL";
 import { Button } from "@/components/Button/index";
+import { Title } from "@/components/Title/index";
 
 export default function Edit() {
   //useFromからフォーム制御に必要なものを取得する
@@ -68,7 +69,8 @@ export default function Edit() {
         </Button>
       </Link>
 
-      <h1 className={create.h1}>編集ページ</h1>
+      <Title>編集ページ</Title>
+
       <form className={create.form} onSubmit={handleSubmit(onSubmit)}>
         <div>
           <div className={create.formGroup}>

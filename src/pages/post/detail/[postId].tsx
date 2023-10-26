@@ -6,6 +6,7 @@ import useFeatchPostDetail from "@/hooks/useFeatchPostDetail";
 import details from "./details.module.css";
 import common from "@/components/common.module.css";
 import { Button } from "@/components/Button/index";
+import { Title } from "@/components/Title/index";
 
 export default function Details() {
   //modalの表示非表示を管理するstate
@@ -34,7 +35,8 @@ export default function Details() {
           </Link>
         </div>
 
-        <h1 className={common.h1}>記事詳細</h1>
+        <Title>記事詳細</Title>
+
         <div>
           <p className={details.title}>{data?.title}</p>
           <p className={details.content}>{data?.content}</p>

@@ -11,6 +11,7 @@ import React from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { postsScheme } from "@/types/validation";
 import { Button } from "@/components/Button/index";
+import { Title } from "@/components/Title/index";
 
 const api = baseURL;
 
@@ -69,7 +70,7 @@ export default function Create() {
         </Button>
       </Link>
 
-      <h1 className={create.h1}>作成ページ</h1>
+      <Title>作成ページ</Title>
       <form className={create.form} onSubmit={handleSubmit(onSubmit)}>
         <div>
           <div className={create.formGroup}>
