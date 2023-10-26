@@ -1,24 +1,24 @@
 //indexページのデータを取得する処理
 import { baseURL } from "@/baseURL";
-import { useQuery, QueryClient } from "react-query";
+import { useQuery } from "react-query";
 import axios from "axios";
-import { posts } from "../types/types";
-
-const createPath = "/post/create";
+import { Posts } from "../types/types";
 
 type ApiResponse = {
-  items: posts[];
+  items: Posts[];
 };
 
+//投稿一覧を取得するカスタムフック
 export default function useFetchIndex() {
-  const queryClient = new QueryClient();
   const api = baseURL;
 
+  //useQueryを使ってデータを取得して const {data: posts,isLoading,isError,}にデータを取得している
+  //useQueryは第一引数に一意のクエリキー、第二引数にデータ取得をする処理を書く
   const {
     data: posts,
     isLoading,
     isError,
-  } = useQuery<posts[]>("posts", async () => {
+  } = useQuery<Posts[]>("posts", async () => {
     try {
       const response = await axios.get<ApiResponse>(api);
       return response.data.items;
@@ -27,8 +27,9 @@ export default function useFetchIndex() {
     }
   });
 
+  //useQueryを使って取得したデータを渡す
   return { posts, isLoading, isError } as {
-    posts: posts[];
+    posts: Posts[]; //配列で一覧を渡す
     isLoading: boolean;
     isError: boolean;
   };
