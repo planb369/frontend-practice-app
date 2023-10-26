@@ -4,6 +4,7 @@ type Props = {
   children?: React.ReactNode;
   onClick?: () => void; //onClickが設定されていれば実行できるようにする
   color?: "red" | "gray" | "blue" | "green";
+  size?: "small" | "large";
 };
 
 export const Button = (props: Props) => {
@@ -12,6 +13,7 @@ export const Button = (props: Props) => {
       onClick={props.onClick}
       // colorが設定されていなければデフォルトでgray
       data-color={props.color ?? "gray"}
+      data-size={props.size ?? "small"}
       className={styles.base}
     >
       {props.children}

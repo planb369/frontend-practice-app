@@ -1,11 +1,11 @@
 import { useRouter } from "next/router";
-import { QueryClient } from "react-query";
 import Link from "next/link";
 import React, { useState } from "react";
 import { DeleteModal } from "@/components/DeleteModal";
 import useFeatchPostDetail from "@/hooks/useFeatchPostDetail";
 import details from "./details.module.css";
 import common from "@/components/common.module.css";
+import { Button } from "@/components/Button/index";
 
 export default function Details() {
   //modalの表示非表示を管理するstate
@@ -28,7 +28,9 @@ export default function Details() {
       <div className={common.container}>
         <div className={details.indexBtn}>
           <Link className={details.indexBtnText} href={"/index"}>
-            一覧画面へ戻る
+            <Button color="gray" size="large">
+              一覧画面へ戻る
+            </Button>
           </Link>
         </div>
 

@@ -21,10 +21,10 @@ export const DeleteModal = (props: Props) => {
       <div className={DeleteModalStyle.buttons}>
         {/* //詳細ページから受け取ったonModalClose(setShowModal(false))を実行する
         //setShowModal(false)なので閉じる操作しかしない */}
-        <Button onClick={props.onModalClose} color={"gray"}>
+        <Button onClick={props.onModalClose} color={"gray"} size="small">
           閉じる
         </Button>
-        <Button onClick={onDelete} color={"red"}>
+        <Button onClick={onDelete} color={"red"} size="small">
           削除
         </Button>
       </div>

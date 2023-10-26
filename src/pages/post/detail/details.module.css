@@ -15,31 +15,6 @@
   padding: 40px;
 }
 
-/* 一覧画面へ戻るボタン */
-.indexBtn {
-  width: 200px;
-  padding: 10px;
-  margin-top: 90px;
-  background-color: rgb(189, 189, 189);
-  text-align: center;
-  border-radius: 20px;
-  box-shadow: 10px 10px 15px -10px;
-}
-.indexBtn:hover {
-  background-color: rgb(231, 231, 231);
-}
-.indexBtn:active {
-  box-shadow: none;
-}
-.indexBtnText {
-  margin: auto;
-  color: #000;
-  text-decoration: none;
-  font-size: 20px;
-  text-align: center;
-}
-/* ここまで一覧画面に戻るボタン */
-
 /* 削除と編集ボタン */
 .buttons {
   display: flex;
