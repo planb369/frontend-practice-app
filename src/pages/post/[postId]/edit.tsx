@@ -106,9 +106,9 @@ export default function Edit() {
           </div>
         </div>
         <div className={create.createButtonContainer}>
-          <button className={create.createButton} type="submit">
+          <Button color="green" size="large" type="submit">
             編集
-          </button>
+          </Button>
         </div>
       </form>
     </div>
