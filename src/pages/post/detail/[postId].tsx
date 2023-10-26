@@ -41,9 +41,9 @@ export default function Details() {
         </div>
 
         <div className={details.buttons}>
-          <button className={details.deleteButton} onClick={ShowModal}>
+          <Button color="red" size="small" onClick={ShowModal}>
             削除
-          </button>
+          </Button>
           {/* 子コンポーネントのDeleteModalを呼び出す */}
           <DeleteModal
             showFlag={showModal}
@@ -52,7 +52,9 @@ export default function Details() {
 
           <div className={details.editButton}>
             <Link className={details.edit} href={`../${postId}/edit`}>
-              編集
+              <Button color="gray" size="small">
+                編集
+              </Button>
             </Link>
           </div>
         </div>

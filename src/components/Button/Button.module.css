@@ -5,6 +5,8 @@
 /* data-sizeがsmallの場合に適用されるという意味 */
 .base[data-size="small"] {
   width: 90px;
+  height: 60px;
+  font-size: 20px;
 }
 .base[data-size="large"] {
   margin-top: 60px;
