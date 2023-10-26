@@ -10,6 +10,7 @@ import { useMutation } from "react-query";
 import React from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { postsScheme } from "@/types/validation";
+import { Button } from "@/components/Button/index";
 
 const api = baseURL;
 
@@ -62,11 +63,11 @@ export default function Create() {
 
   return (
     <div className={common.container}>
-      <div className={create.indexBtn}>
-        <Link className={create.indexBtnText} href={"/index"}>
-          一覧画面へ戻る
-        </Link>
-      </div>
+      <Link className={create.indexBtnText} href={"/index"}>
+        <Button color="gray" size="large">
+          一覧に戻る
+        </Button>
+      </Link>
 
       <h1 className={create.h1}>作成ページ</h1>
       <form className={create.form} onSubmit={handleSubmit(onSubmit)}>

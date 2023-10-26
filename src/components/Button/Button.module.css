@@ -8,6 +8,7 @@
 }
 .base[data-size="large"] {
   margin-top: 60px;
+  margin-bottom: 30px;
   width: 200px;
   height: 80px;
   font-size: 30px;
