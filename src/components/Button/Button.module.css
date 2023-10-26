@@ -1,0 +1,13 @@
+.base {
+  width: 90px;
+  border-radius: 10px;
+}
+
+/* data-colorがredの場合に適用されるという意味 */
+.base[data-color="red"] {
+  background-color: rgb(255, 82, 82);
+}
+
+.base[data-color="gray"] {
+  background-color: rgb(197, 197, 197);
+}

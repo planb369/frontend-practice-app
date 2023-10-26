@@ -14,13 +14,3 @@
   justify-content: space-between;
   height: 60px;
 }
-.closeButton {
-  background-color: rgb(197, 197, 197);
-  width: 90px;
-  border-radius: 10px;
-}
-.deleteButton {
-  width: 90px;
-  background-color: rgb(255, 82, 82);
-  border-radius: 10px;
-}
