@@ -4,9 +4,9 @@ import React, { useState } from "react";
 import { DeleteModal } from "@/components/DeleteModal";
 import useFeatchPostDetail from "@/hooks/useFeatchPostDetail";
 import details from "./details.module.css";
-import common from "@/components/common.module.css";
 import { Button } from "@/components/Button/index";
 import { Title } from "@/components/Title/index";
+import { Container } from "@/components/Container/index";
 
 export default function Details() {
   //modalの表示非表示を管理するstate
@@ -26,7 +26,7 @@ export default function Details() {
   // データが正常に取得された場合
   return (
     <>
-      <div className={common.container}>
+      <Container>
         <div className={details.indexBtn}>
           <Link className={details.indexBtnText} href={"/index"}>
             <Button color="gray" size="large">
@@ -60,7 +60,7 @@ export default function Details() {
             </Link>
           </div>
         </div>
-      </div>
+      </Container>
     </>
   );
 }

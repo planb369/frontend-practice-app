@@ -5,7 +5,6 @@ import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import React from "react";
 import useFeatchPostDetail from "@/hooks/useFeatchPostDetail";
 import create from "@/pages/post/create/create.module.css";
-import common from "@/components/common.module.css";
 import { postsScheme } from "@/types/validation";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "react-query";
@@ -13,6 +12,7 @@ import { Posts } from "@/types/types";
 import { baseURL } from "@/baseURL";
 import { Button } from "@/components/Button/index";
 import { Title } from "@/components/Title/index";
+import { Container } from "@/components/Container/index";
 
 export default function Edit() {
   //useFromからフォーム制御に必要なものを取得する
@@ -62,7 +62,7 @@ export default function Edit() {
   };
 
   return (
-    <div className={common.container}>
+    <Container>
       <Link className={create.indexBtnText} href={"/index"}>
         <Button color="gray" size="large">
           一覧に戻る
@@ -113,6 +113,6 @@ export default function Edit() {
           </Button>
         </div>
       </form>
-    </div>
+    </Container>
   );
 }

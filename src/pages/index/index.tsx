@@ -3,6 +3,7 @@ import index from "./index.module.css";
 import useFetchIndex from "@/hooks/useFetchIndex";
 import { Button } from "@/components/Button/index";
 import { Title } from "@/components/Title/index";
+import { Container } from "@/components/Container/index";
 
 export default function Home() {
   // FeatchDetailコンポーネントを呼び出してデータを取得
@@ -10,7 +11,7 @@ export default function Home() {
 
   return (
     <>
-      <div className={index.container}>
+      <Container>
         <Title>記事一覧</Title>
         {posts?.map((post) => (
           <div key={post.id} className={index.itemTitle}>
@@ -26,7 +27,7 @@ export default function Home() {
             </Button>
           </Link>
         </div>
-      </div>
+      </Container>
     </>
   );
 }

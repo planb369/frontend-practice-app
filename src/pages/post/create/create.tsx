@@ -5,13 +5,13 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import { Posts } from "../../../types/types";
 import create from "./create.module.css";
-import common from "@/components/common.module.css";
 import { useMutation } from "react-query";
 import React from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { postsScheme } from "@/types/validation";
 import { Button } from "@/components/Button/index";
 import { Title } from "@/components/Title/index";
+import { Container } from "@/components/Container/index";
 
 const api = baseURL;
 
@@ -63,7 +63,7 @@ export default function Create() {
   };
 
   return (
-    <div className={common.container}>
+    <Container>
       <Link className={create.indexBtnText} href={"/index"}>
         <Button color="gray" size="large">
           一覧に戻る
@@ -106,6 +106,6 @@ export default function Create() {
           </Button>
         </div>
       </form>
-    </div>
+    </Container>
   );
 }
