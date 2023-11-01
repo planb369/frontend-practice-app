@@ -37,6 +37,12 @@ export default function Details() {
 
         <Title>記事詳細</Title>
 
+        {/* データ取得中の表示 */}
+        {isLoading && <p>読み込み中...</p>}
+
+        {/* データ取得エラーの表示 */}
+        {isError && <p>Error: データの取得に失敗しました。</p>}
+
         <div>
           <p className={details.title}>{data?.title}</p>
           <p className={details.content}>{data?.content}</p>
