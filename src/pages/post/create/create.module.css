@@ -28,3 +28,10 @@
 .validationMessage {
   color: red;
 }
+
+/*エラーメッセージ*/
+.error {
+  color: red;
+  font-size: 25px;
+  margin-bottom: 50px;
+}
