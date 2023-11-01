@@ -27,10 +27,10 @@ export default function Edit() {
 
   const router = useRouter();
   const { postId } = router.query;
-  const api = `${baseURL}/${postId}`;
+  const api = `f${baseURL}/${postId}`;
 
   const { data, isLoading, isError } = useFeatchPostDetail();
-  const [errorMessage, setErrorMessage] = useState(null); //エラーメッセージ用
+  const [errorMessage, setErrorMessage] = useState<string | null>(null); //エラーメッセージ用
 
   const editPostMutation = async (postData: Omit<Posts, "id">) => {
     const response = await axios.put(api, postData);
@@ -43,7 +43,15 @@ export default function Edit() {
     isError: isMutatingError,
   } = useMutation("mutationKey", editPostMutation, {
     onError: (error) => {
-      setErrorMessage(error.response?.data?.message || "送信に失敗しました");
+      if (axios.isAxiosError(error)) {
+        console.error("ミューテーションエラー:", error);
+        // エラーメッセージを設定
+        setErrorMessage(error.response?.data?.message || "送信に失敗しました");
+      } else {
+        console.error("未知のエラー:", error);
+        // エラーメッセージを設定
+        setErrorMessage("送信に失敗しました");
+      }
     },
   });
 
@@ -53,7 +61,7 @@ export default function Edit() {
     try {
       await mutate(data);
       console.log("成功しました");
-      router.push("/index");
+      //router.push("/index");
     } catch (err) {
       console.log("データが送信できませんでした", err);
       throw err;
