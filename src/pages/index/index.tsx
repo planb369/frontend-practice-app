@@ -10,24 +10,22 @@ export default function Home() {
   const { posts, isLoading, isError } = useFetchIndex();
 
   return (
-    <>
-      <Container>
-        <Title>記事一覧</Title>
-        {posts?.map((post) => (
-          <div key={post.id} className={index.itemTitle}>
-            <Link className={index.title} href={`../post/detail/${post.id}`}>
-              {post.title}
-            </Link>
-          </div>
-        ))}
-        <div className={index.addBtnContainer}>
-          <Link href={"../post/create/create"}>
-            <Button color="green" size="large">
-              追加
-            </Button>
+    <Container>
+      <Title>記事一覧</Title>
+      {posts?.map((post) => (
+        <div key={post.id} className={index.itemTitle}>
+          <Link className={index.title} href={`../post/detail/${post.id}`}>
+            {post.title}
           </Link>
         </div>
-      </Container>
-    </>
+      ))}
+      <div className={index.addBtnContainer}>
+        <Link href={"../post/create/create"}>
+          <Button color="green" size="large">
+            追加
+          </Button>
+        </Link>
+      </div>
+    </Container>
   );
 }

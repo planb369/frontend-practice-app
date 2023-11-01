@@ -25,9 +25,5 @@ export default function useFeatchPostDetail() {
   );
 
   //useQueryを使って取得したデータを返す
-  return { data, isLoading, isError } as {
-    data: Posts | undefined;
-    isLoading: boolean;
-    isError: boolean;
-  };
+  return { data, isLoading, isError };
 }

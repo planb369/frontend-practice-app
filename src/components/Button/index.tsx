@@ -8,9 +8,6 @@ type Props = {
   type?: "submit";
 };
 
-// type 属性を適用するための変数
-const buttonType = "submit";
-
 export const Button = (props: Props) => {
   return (
     <button

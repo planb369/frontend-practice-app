@@ -28,9 +28,5 @@ export default function useFetchIndex() {
   });
 
   //useQueryを使って取得したデータを渡す
-  return { posts, isLoading, isError } as {
-    posts: Posts[]; //配列で一覧を渡す
-    isLoading: boolean;
-    isError: boolean;
-  };
+  return { posts, isLoading, isError };
 }
