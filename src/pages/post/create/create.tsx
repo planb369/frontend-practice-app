@@ -6,7 +6,7 @@ import axios from "axios";
 import { Posts } from "../../../types/types";
 import create from "./create.module.css";
 import { useMutation } from "react-query";
-import React from "react";
+import React, { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { postsScheme } from "@/types/validation";
 import { Button } from "@/components/Button/index";
@@ -15,7 +15,7 @@ import { Container } from "@/components/Container/index";
 import { Input } from "@/components/TextField/input";
 import { Textarea } from "@/components/TextField/textarea";
 
-const api = baseURL;
+const api = `${baseURL}ff`;
 
 //投稿機能
 const createPost = async (postData: Omit<Posts, "id">) => {
@@ -34,15 +34,24 @@ export default function Create() {
     resolver: yupResolver(postsScheme),
   });
   const router = useRouter();
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   //useMutationは第一引数に実行する処理、第二引数に成功時、失敗時の処理を書く
   const mutation = useMutation(createPost, {
     onSuccess: () => {
       console.log("成功しました");
-      router.push("/index");
+      //router.push("/index");
     },
     onError: (err) => {
-      console.log("投稿に失敗しました", err);
+      if (axios.isAxiosError(err)) {
+        console.error("ミューテーションエラー:", err);
+        // エラーメッセージを設定
+        setErrorMessage(err.response?.data?.message || "送信に失敗しました");
+      } else {
+        console.error("未知のエラー:", err);
+        // エラーメッセージを設定
+        setErrorMessage("送信に失敗しました");
+      }
     },
   });
 
@@ -73,6 +82,9 @@ export default function Create() {
       </Link>
 
       <Title>作成ページ</Title>
+
+      {errorMessage && <p className={create.error}>{errorMessage}</p>}
+
       <form className={create.form} onSubmit={handleSubmit(onSubmit)}>
         <div>
           <div className={create.formGroup}>
