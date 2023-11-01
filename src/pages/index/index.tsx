@@ -12,6 +12,14 @@ export default function Home() {
   return (
     <Container>
       <Title>記事一覧</Title>
+
+      {/* データ取得中の表示 */}
+      {isLoading && <p>読み込み中...</p>}
+
+      {/* データ取得エラーの表示 */}
+      {isError && <p>Error: データの取得に失敗しました。</p>}
+
+      {/* データが存在する場合の表示 */}
       {posts?.map((post) => (
         <div key={post.id} className={index.itemTitle}>
           <Link className={index.title} href={`../post/detail/${post.id}`}>
@@ -19,6 +27,7 @@ export default function Home() {
           </Link>
         </div>
       ))}
+
       <div className={index.addBtnContainer}>
         <Link href={"../post/create/create"}>
           <Button color="green" size="large">
