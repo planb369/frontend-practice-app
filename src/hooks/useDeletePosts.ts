@@ -2,6 +2,7 @@ import { baseURL } from "@/baseURL";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useMutation } from "react-query";
+import React, { useState } from "react";
 
 //useMutationフックで定義されたミューテーション関数であるdeletePost
 const deletePost = async (postId: string) => {
@@ -14,6 +15,7 @@ const deletePost = async (postId: string) => {
 export const useDeletePost = () => {
   const router = useRouter();
   const { postId } = router.query;
+  const [errorMessage, setErrorMessage] = useState<string | null>(null); //エラーメッセージ用
 
   //useMutationは第一引数にミューテーション処理を指定し、
   //第二引数にはそれが成功したり失敗した場合に実行する関数を指定する
@@ -22,8 +24,15 @@ export const useDeletePost = () => {
       console.log("成功しました");
       router.push("/index");
     },
-    onError: (err) => {
-      console.log("削除に失敗しました");
+    onError: (error) => {
+      if (axios.isAxiosError(error)) {
+        console.error("ミューテーションエラー:", error);
+        alert("削除に失敗しました");
+      } else {
+        console.error("未知のエラー:", error);
+        // エラーメッセージを設定
+        alert("削除に失敗しました");
+      }
     },
   });
 
