@@ -87,7 +87,7 @@ export default function Edit() {
                   defaultValue={data && data.title}
                   className={create.titleErea}
                   type="text"
-                  {...field}
+                  {...field} //props
                 />
               )}
             />
