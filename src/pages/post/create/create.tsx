@@ -12,6 +12,7 @@ import { postsScheme } from "@/types/validation";
 import { Button } from "@/components/Button/index";
 import { Title } from "@/components/Title/index";
 import { Container } from "@/components/Container/index";
+import { Input } from "@/components/TextField/input";
 
 const api = baseURL;
 
@@ -82,7 +83,7 @@ export default function Create() {
               control={control} //これでnameの追跡ができるようになるらしい
               // render={({ field })で変更がReact Hook Formによって追跡され制御できるらしい
               render={({ field }) => (
-                <input className={create.titleErea} type="text" {...field} />
+                <Input className={create.titleErea} type="text" {...field} />
               )}
             />
             {/* useFromから取得したerrorsオブジェクト */}

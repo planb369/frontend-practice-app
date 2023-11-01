@@ -13,6 +13,7 @@ import { baseURL } from "@/baseURL";
 import { Button } from "@/components/Button/index";
 import { Title } from "@/components/Title/index";
 import { Container } from "@/components/Container/index";
+import { Input } from "@/components/TextField/input";
 
 export default function Edit() {
   //useFromからフォーム制御に必要なものを取得する
@@ -81,7 +82,7 @@ export default function Edit() {
               control={control} //これでnameの追跡ができるようになるらしい
               // render={({ field })で変更がReact Hook Formによって追跡され制御できるらしい
               render={({ field }) => (
-                <input
+                <Input
                   defaultValue={data && data.title}
                   className={create.titleErea}
                   type="text"
