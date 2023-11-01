@@ -13,6 +13,7 @@ import { Button } from "@/components/Button/index";
 import { Title } from "@/components/Title/index";
 import { Container } from "@/components/Container/index";
 import { Input } from "@/components/TextField/input";
+import { Textarea } from "@/components/TextField/textarea";
 
 const api = baseURL;
 
@@ -95,7 +96,7 @@ export default function Create() {
               name="content"
               control={control}
               render={({ field }) => (
-                <textarea className={create.contentErea} {...field} />
+                <Textarea className={create.contentErea} {...field} />
               )}
             />
             <p className={create.error}>{errors.content?.message}</p>

@@ -14,6 +14,7 @@ import { Button } from "@/components/Button/index";
 import { Title } from "@/components/Title/index";
 import { Container } from "@/components/Container/index";
 import { Input } from "@/components/TextField/input";
+import { Textarea } from "@/components/TextField/textarea";
 
 export default function Edit() {
   //useFromからフォーム制御に必要なものを取得する
@@ -98,7 +99,7 @@ export default function Edit() {
               name="content"
               control={control}
               render={({ field }) => (
-                <textarea
+                <Textarea
                   defaultValue={data && data.content}
                   className={create.contentErea}
                   {...field}
