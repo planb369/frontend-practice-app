@@ -58,14 +58,9 @@ export default function Edit() {
   const onSubmit: SubmitHandler<{ title: string; content: string }> = async (
     data
   ) => {
-    try {
-      await mutate(data);
-      console.log("成功しました");
-      router.push("/index");
-    } catch (err) {
-      console.log("データが送信できませんでした", err);
-      throw err;
-    }
+    await mutate(data);
+    console.log("成功しました");
+    router.push("/index");
   };
 
   return (

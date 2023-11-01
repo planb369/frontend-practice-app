@@ -62,15 +62,11 @@ export default function Create() {
     //入力されたdataを引数に取る
     data
   ) => {
-    try {
-      const postData = { title: data.title, content: data.content };
+    const postData = { title: data.title, content: data.content };
 
-      //reactQueryのuseMutationフックで定義されたミューテーション関数を実行するためのもの
-      //mutation処理が入った変数を実行している。
-      mutation.mutate(postData);
-    } catch (err) {
-      console.log("データが送信できませんでした", err);
-    }
+    //reactQueryのuseMutationフックで定義されたミューテーション関数を実行するためのもの
+    //mutation処理が入った変数を実行している。
+    mutation.mutate(postData);
   };
 
   return (
