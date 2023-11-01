@@ -14,8 +14,12 @@
     "jsx": "preserve",
     "incremental": true,
     "paths": {
-      "@/*": ["./src/*"]
-    }
+      "@/*": ["./src/*"],
+      "@hookform/resolvers/yup": [
+        "node_modules/@hookform/resolvers/yup/dist/yup.esm.js"
+      ]
+    },
+    "baseUrl": "./"
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
