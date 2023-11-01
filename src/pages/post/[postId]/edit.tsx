@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import Link from "next/link";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
-import React from "react";
+import React, { useState } from "react";
 import useFeatchPostDetail from "@/hooks/useFeatchPostDetail";
 import create from "@/pages/post/create/create.module.css";
 import { postsScheme } from "@/types/validation";
@@ -17,13 +17,11 @@ import { Input } from "@/components/TextField/input";
 import { Textarea } from "@/components/TextField/textarea";
 
 export default function Edit() {
-  //useFromからフォーム制御に必要なものを取得する
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    //オプションとしてバリデーションも取得する。バリデーションルールは自作したもの
     resolver: yupResolver(postsScheme),
   });
 
@@ -31,35 +29,34 @@ export default function Edit() {
   const { postId } = router.query;
   const api = `${baseURL}/${postId}`;
 
-  // 対象の詳細データを取得
   const { data, isLoading, isError } = useFeatchPostDetail();
+  const [errorMessage, setErrorMessage] = useState(null); //エラーメッセージ用
 
-  // 編集処理 データの型としてidを除く
   const editPostMutation = async (postData: Omit<Posts, "id">) => {
     const response = await axios.put(api, postData);
-    return response.data; // 編集されたデータを返す
+    return response.data;
   };
 
-  //useMutationから必要なものを取得
-  //editPostMutation関数をmutateとして登録
   const {
     mutate,
     isLoading: isMutating,
     isError: isMutatingError,
-  } = useMutation(editPostMutation);
+  } = useMutation("mutationKey", editPostMutation, {
+    onError: (error) => {
+      setErrorMessage(error.response?.data?.message || "送信に失敗しました");
+    },
+  });
 
-  //formの投稿ボタンを押したときに実行されるonSubmit
-  //SubmitHandlerはReact Hook Formで使用される型らしい
-  //titleとcontentをオブジェクトで受け取る
   const onSubmit: SubmitHandler<{ title: string; content: string }> = async (
     data
   ) => {
     try {
-      await mutate(data); // 編集を実行
+      await mutate(data);
       console.log("成功しました");
       router.push("/index");
     } catch (err) {
       console.log("データが送信できませんでした", err);
+      throw err;
     }
   };
 
@@ -73,21 +70,21 @@ export default function Edit() {
 
       <Title>編集ページ</Title>
 
+      {errorMessage && <p className={create.error}>{errorMessage}</p>}
+
       <form className={create.form} onSubmit={handleSubmit(onSubmit)}>
         <div>
           <div className={create.formGroup}>
             <label htmlFor="title">タイトル:</label>
-            {/* reactHookFromと連携させるためにControllerコンポーネントを使用する */}
             <Controller
-              name="title" //deta.titleになる部分
-              control={control} //これでnameの追跡ができるようになるらしい
-              // render={({ field })で変更がReact Hook Formによって追跡され制御できるらしい
+              name="title"
+              control={control}
               render={({ field }) => (
                 <Input
                   defaultValue={data && data.title}
                   className={create.titleErea}
                   type="text"
-                  {...field} //props
+                  {...field}
                 />
               )}
             />
